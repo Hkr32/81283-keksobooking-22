@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Aleksandr Gorbatov](https://up.htmlacademy.ru/javascript/22/user/81283).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Палян](https://htmlacademy.ru/profile/id1231107).
 
 ---
 
