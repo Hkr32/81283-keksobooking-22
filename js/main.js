@@ -82,6 +82,6 @@ function generateFakeData() {
   return fakeData;
 }
 
-const FAKE_COUNTER = 10;
-const fakes = new Array(FAKE_COUNTER).fill(null).map(() => generateFakeData());
-console.log(fakes);
+function generateArrayFakeData(counter) {
+  return new Array(counter).fill(null).map(() => generateFakeData());
+}
