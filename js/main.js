@@ -47,6 +47,19 @@ function getRandomElementFromArray(elements) {
   return elements[getRandomIntInclusive(0, elements.length - 1)];
 }
 
+// Получение случайного массива с уникальными(опционально) значениями
+function getRandomElementsFromArray(elements, unique = false) {
+  const counter = getRandomIntInclusive(1, elements.length);
+  const indexes = new Array(counter).fill(null).map(() => {
+    return getRandomIntInclusive(0, elements.length - 1);
+  });
+  const uniqueIndexes = unique ? Array.from(new Set(indexes)) : indexes;
+
+  return uniqueIndexes.map((i) => {
+    return elements[i];
+  });
+}
+
 // Генератор фейковых данных
 function generateFakeData() {
   const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
@@ -73,9 +86,9 @@ function generateFakeData() {
       guests: getRandomIntInclusive(1, 5),
       checkin: getRandomElementFromArray(OFFER_TIME),
       checkout: getRandomElementFromArray(OFFER_TIME),
-      features: getRandomElementFromArray(OFFER_FEATURES),
+      features: getRandomElementsFromArray(OFFER_FEATURES, true),
       description: 'description - ' + new Date().getTime() * getRandomIntInclusive(1, 1000) + ' - description',
-      photos: getRandomElementFromArray(OFFER_PHOTOS),
+      photos: getRandomElementsFromArray(OFFER_PHOTOS, false),
     },
   };
 
