@@ -88,7 +88,7 @@ function generateFakeData() {
       checkout: getRandomElementFromArray(OFFER_TIME),
       features: getRandomElementsFromArray(OFFER_FEATURES, true),
       description: 'description - ' + new Date().getTime() * getRandomIntInclusive(1, 1000) + ' - description',
-      photos: getRandomElementsFromArray(OFFER_PHOTOS, false),
+      photos: getRandomElementsFromArray(OFFER_PHOTOS, true),
     },
   };
 
