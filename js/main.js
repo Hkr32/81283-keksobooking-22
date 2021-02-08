@@ -39,7 +39,7 @@ function getRandomIntFloatInclusive(min = 0, max = 0, counter = 2) {
   min = parseFloat(min);
   max = parseFloat(max);
 
-  return ((Math.random() * (max - min)) + min).toFixed(counter);
+  return parseFloat(((Math.random() * (max - min)) + min).toFixed(counter));
 }
 
 // Получение случайного элемента массива
