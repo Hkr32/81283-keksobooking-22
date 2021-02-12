@@ -39,4 +39,8 @@ function generateFakeData() {
   return fakeData;
 }
 
-export { generateFakeData };
+function generateArrayFakeData(counter) {
+  return new Array(counter).fill(null).map(() => generateFakeData());
+}
+
+export { generateFakeData, generateArrayFakeData };
