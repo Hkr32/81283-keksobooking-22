@@ -1,8 +1,8 @@
-import { generateArrayFakeData } from './generate.js';
+import { generateFakeData } from './generate.js';
 import { types } from './data.js';
 
 // Создаем карточку предложения
-function generateCard(cardItem, item) {
+function prepareCard(cardItem, item) {
   cardItem.querySelector('.popup__avatar').setAttribute('src', item.author.avatar);
   cardItem.querySelector('.popup__avatar').setAttribute('alt', item.offer.title);
   cardItem.querySelector('.popup__title').textContent = item.offer.title;
@@ -35,19 +35,14 @@ function generateCard(cardItem, item) {
 }
 
 // Генерируем нужно количество карточек предложений
-function generateCards(counter = 1) {
+function generateCard() {
   const template = document.querySelector('#card').content.querySelector('article');
   const fragment = document.createDocumentFragment();
-
-  const cards = generateArrayFakeData(counter);
-
-  cards.forEach((item) => {
-    const cardElement = generateCard(template.cloneNode(true), item);
-
-    fragment.appendChild(cardElement);
-  });
+  const card = generateFakeData();
+  const cardElement = prepareCard(template.cloneNode(true), card);
+  fragment.appendChild(cardElement);
 
   return fragment;
 }
 
-export { generateCards };
+export { generateCard };
