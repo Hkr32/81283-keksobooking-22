@@ -1,3 +1,3 @@
-import { generateCard } from './cards.js';
+import { generateCard } from './card.js';
 
 document.querySelector('#map-canvas').appendChild(generateCard());
