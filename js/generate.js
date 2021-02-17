@@ -39,7 +39,7 @@ function generateFakeData() {
   return fakeData;
 }
 
-function generateArrayFakeData(counter) {
+function generateArrayFakeData(counter = 1) {
   return new Array(counter).fill(null).map(() => generateFakeData());
 }
 
