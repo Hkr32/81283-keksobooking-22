@@ -10,10 +10,17 @@ const offer = {
 };
 
 const types = {
-  palace: 'Дворец',
+  bungalow: 'Бунгало',
   flat: 'Квартира',
   house: 'Дом',
-  bungalow: 'Бунгало',
+  palace: 'Дворец',
 };
 
-export { offer, types };
+const prices = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+};
+
+export { offer, types, prices };
