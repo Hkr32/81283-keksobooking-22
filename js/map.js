@@ -1,4 +1,6 @@
+import { startCoordinates, mainMapPinIcon } from './data.js';
 import { enabledForm } from './helper.js';
+import { formAddressChangeHandler } from './form.js';
 
 function initMap(idMap) {
   const map = L.map(idMap);
@@ -15,6 +17,22 @@ function initMap(idMap) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
     },
   ).addTo(map);
+
+  const mainPinMarker = L.marker(
+    startCoordinates,
+    {
+      draggable: true,
+      icon: L.icon(mainMapPinIcon),
+    },
+  );
+
+  mainPinMarker.addTo(map);
+
+  formAddressChangeHandler(startCoordinates)
+
+  mainPinMarker.on('moveend', (evt) => {
+    formAddressChangeHandler(evt.target.getLatLng());
+  });
 }
 
 function enableForms() {

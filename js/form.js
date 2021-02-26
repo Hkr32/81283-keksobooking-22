@@ -39,4 +39,10 @@ function formHousingTimeChangeHandler(timeSelect) {
   document.querySelector('#timeout').value = timeValue;
 }
 
-export { filterFormHandler };
+// Действия на изменения координат адреса
+function formAddressChangeHandler(coordinates) {
+  const address = document.querySelector('#address');
+  address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
+}
+
+export { filterFormHandler, formAddressChangeHandler };
