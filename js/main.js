@@ -1,6 +1,6 @@
 import { generateCard } from './card.js';
 import { filterFormHandler } from './form.js';
-import { disabledForm } from './helper.js';
+import { disabledForm, enabledForm } from './helper.js';
 import { initMap } from './map.js';
 
 // document.querySelector('#map-canvas').appendChild(generateCard());
