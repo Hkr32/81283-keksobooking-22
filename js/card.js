@@ -1,4 +1,4 @@
-import { generateFakeData } from './generate.js';
+// import { generateFakeData } from './generate.js';
 import { types } from './data.js';
 
 // Создаем карточку предложения
@@ -35,14 +35,14 @@ function prepareCard(cardItem, item) {
 }
 
 // Генерируем нужно количество карточек предложений
-function generateCard() {
+function generateCard(card) {
   const template = document.querySelector('#card').content.querySelector('article');
   const fragment = document.createDocumentFragment();
-  const card = generateFakeData();
+  // const card = generateFakeData();
   const cardElement = prepareCard(template.cloneNode(true), card);
-  fragment.appendChild(cardElement);
+  // fragment.appendChild(cardElement);
 
-  return fragment;
+  return cardElement;
 }
 
 export { generateCard };

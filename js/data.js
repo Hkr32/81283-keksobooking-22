@@ -34,4 +34,10 @@ const mainMapPinIcon = {
   iconAnchor: [26, 52],
 };
 
-export { offer, types, prices, startCoordinates, mainMapPinIcon };
+const mapPinIcon = {
+  iconUrl: 'img/pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+};
+
+export { offer, types, prices, startCoordinates, mainMapPinIcon, mapPinIcon };

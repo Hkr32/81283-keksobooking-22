@@ -1,6 +1,8 @@
-import { startCoordinates, mainMapPinIcon } from './data.js';
+import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enabledForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
+import { generateArrayFakeData } from './generate.js';
+import { generateCard } from './card.js';
 
 function initMap(idMap) {
   const map = L.map(idMap);
@@ -18,13 +20,7 @@ function initMap(idMap) {
     },
   ).addTo(map);
 
-  const mainPinMarker = L.marker(
-    startCoordinates,
-    {
-      draggable: true,
-      icon: L.icon(mainMapPinIcon),
-    },
-  );
+  const mainPinMarker = addPinMarker(startCoordinates, mainMapPinIcon, true)
 
   mainPinMarker.addTo(map);
 
@@ -33,6 +29,42 @@ function initMap(idMap) {
   mainPinMarker.on('moveend', (evt) => {
     formAddressChangeHandler(evt.target.getLatLng());
   });
+
+  const points = generateArrayFakeData(5);
+  points.forEach((point) => {
+    const coordinates = {
+      lat: point.location.x,
+      lng: point.location.y,
+    }
+    const icon = L.icon(mapPinIcon);
+    const marker = L.marker(
+      coordinates,
+      {
+        icon,
+      },
+    );
+
+    marker
+      .addTo(map)
+      .bindPopup(
+        generateCard(point),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
+
+function addPinMarker(coordinates, icon, draggable) {
+  const marker = L.marker(
+    coordinates,
+    {
+      draggable,
+      icon: L.icon(icon),
+    },
+  );
+
+  return marker;
 }
 
 function enableForms() {

@@ -1,5 +1,5 @@
-import { generateCard } from './card.js';
-import { filterFormHandler } from './form.js';
+// import { generateCard } from './card.js';
+// import { filterFormHandler } from './form.js';
 import { disabledForm, enabledForm } from './helper.js';
 import { initMap } from './map.js';
 
