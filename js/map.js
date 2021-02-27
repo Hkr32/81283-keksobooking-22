@@ -9,9 +9,9 @@ function initMap(idMap) {
 
   map.on('load', enableForms);
   map.setView({
-    lat: 28.353,
-    lng: 145.020,
-  }, 4);
+    lat: 35.6836,
+    lng: 139.7588,
+  }, 13);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
