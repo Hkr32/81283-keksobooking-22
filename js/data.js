@@ -23,4 +23,21 @@ const prices = {
   palace: 10000,
 };
 
-export { offer, types, prices };
+const startCoordinates = {
+  lat: 35.67514743608467,
+  lng: 139.76806640625003,
+};
+
+const mainMapPinIcon = {
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+};
+
+const mapPinIcon = {
+  iconUrl: 'img/pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+};
+
+export { offer, types, prices, startCoordinates, mainMapPinIcon, mapPinIcon };
