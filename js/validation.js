@@ -23,6 +23,7 @@ addRequireEvent(adForm);
 
 adForm.title.addEventListener('input', () => {
   const valueLength = adForm.title.value.length;
+
   if (valueLength < MIN_TITLE_LENGTH) {
     adForm.title.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
   } else if (valueLength > MAX_TITLE_LENGTH) {
@@ -33,8 +34,13 @@ adForm.title.addEventListener('input', () => {
 });
 
 adForm.price.addEventListener('input', () => {
-  if (adForm.price.value > MAX_PRICE_LENGTH) {
-    adForm.price.setCustomValidity('Введенное число больше максимального значения: ' + MAX_PRICE_LENGTH);
+  const value = adForm.price.value;
+  const min = adForm.price.getAttribute('min');
+
+  if (value < min) {
+    adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
+  } else if (adForm.price.value > MAX_PRICE_LENGTH) {
+    adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
   } else {
     adForm.price.setCustomValidity('');
   }
