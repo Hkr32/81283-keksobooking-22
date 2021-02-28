@@ -1,6 +1,7 @@
 import { filterFormHandler } from './form.js';
 import { disabledForm } from './helper.js';
 import { initMap } from './map.js';
+import './validation.js';
 
 filterFormHandler(document.querySelector('.ad-form'));
 
