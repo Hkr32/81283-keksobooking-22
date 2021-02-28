@@ -1,6 +1,6 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE_LENGTH = 1000;
+const MAX_PRICE_LENGTH = 1000000;
 
 function addRequireEvent(form) {
   for (let input in form) {
