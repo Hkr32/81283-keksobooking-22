@@ -1,3 +1,5 @@
+/* global L:readonly */
+
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enabledForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
