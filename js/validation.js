@@ -2,6 +2,11 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_LENGTH = 1000000;
 
+const adForm = {
+  title: document.querySelector('#title'),
+  price: document.querySelector('#price'),
+};
+
 function addRequireEvent(form) {
   for (let input in form) {
     form[input].addEventListener('invalid', () => {
@@ -14,34 +19,33 @@ function addRequireEvent(form) {
   }
 }
 
-const adForm = {
-  title: document.querySelector('#title'),
-  price: document.querySelector('#price'),
-};
+function initValidationAdForm() {
+  addRequireEvent(adForm);
 
-addRequireEvent(adForm);
+  adForm.title.addEventListener('input', () => {
+    const valueLength = adForm.title.value.length;
 
-adForm.title.addEventListener('input', () => {
-  const valueLength = adForm.title.value.length;
+    if (valueLength < MIN_TITLE_LENGTH) {
+      adForm.title.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      adForm.title.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
+    } else {
+      adForm.title.setCustomValidity('');
+    }
+  });
 
-  if (valueLength < MIN_TITLE_LENGTH) {
-    adForm.title.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
-  } else if (valueLength > MAX_TITLE_LENGTH) {
-    adForm.title.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
-  } else {
-    adForm.title.setCustomValidity('');
-  }
-});
+  adForm.price.addEventListener('input', () => {
+    const value = adForm.price.value;
+    const min = adForm.price.getAttribute('min');
 
-adForm.price.addEventListener('input', () => {
-  const value = adForm.price.value;
-  const min = adForm.price.getAttribute('min');
+    if (value < min) {
+      adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
+    } else if (adForm.price.value > MAX_PRICE_LENGTH) {
+      adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
+    } else {
+      adForm.price.setCustomValidity('');
+    }
+  });
+}
 
-  if (value < min) {
-    adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
-  } else if (adForm.price.value > MAX_PRICE_LENGTH) {
-    adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
-  } else {
-    adForm.price.setCustomValidity('');
-  }
-});
+export { initValidationAdForm };

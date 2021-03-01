@@ -1,7 +1,11 @@
 import { prices } from './data.js';
+import { disableForm } from './helper.js';
+import { initValidationAdForm } from './validation.js';
 
 // Добавляем события для формы
-function filterFormHandler(form) {
+function adFormHandler(form) {
+  disableForm(form, 'ad-form--disabled');
+  initValidationAdForm();
   form.addEventListener('change', filterChangeHandler());
 }
 
@@ -45,4 +49,4 @@ function formAddressChangeHandler(coordinates) {
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
 }
 
-export { filterFormHandler, formAddressChangeHandler };
+export { adFormHandler, formAddressChangeHandler };
