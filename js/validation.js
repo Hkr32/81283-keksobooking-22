@@ -35,12 +35,12 @@ function initValidationAdForm() {
   });
 
   adForm.price.addEventListener('input', () => {
-    const value = adForm.price.value;
-    const min = adForm.price.getAttribute('min');
+    const price = Number(adForm.price.value);
+    const min = Number(adForm.price.getAttribute('min'));
 
-    if (value < min) {
+    if (price < min) {
       adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
-    } else if (adForm.price.value > MAX_PRICE_LENGTH) {
+    } else if (price > MAX_PRICE_LENGTH) {
       adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
     } else {
       adForm.price.setCustomValidity('');
