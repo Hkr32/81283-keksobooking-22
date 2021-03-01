@@ -1,5 +1,5 @@
 // Добавить блокировку элементов формы
-function disabledForm(formData, classData) {
+function disableForm(formData, classData) {
   formData.classList.add(classData);
   const formElements = formData.querySelectorAll('input, select, textarea, button');
 
@@ -9,7 +9,7 @@ function disabledForm(formData, classData) {
 }
 
 // Снять блокировку элементов формы
-function enabledForm(formData, classData) {
+function enableForm(formData, classData) {
   formData.classList.remove(classData);
   const formElements = formData.querySelectorAll('input, select, textarea, button');
 
@@ -18,4 +18,4 @@ function enabledForm(formData, classData) {
   });
 }
 
-export { disabledForm, enabledForm };
+export { disableForm, enableForm };

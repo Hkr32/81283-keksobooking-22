@@ -1,7 +1,7 @@
 /* global L:readonly */
 
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
-import { enabledForm } from './helper.js';
+import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
 import { generateArrayFakeData } from './generate.js';
 import { generateCard } from './card.js';
@@ -70,8 +70,8 @@ function addPinMarker(coordinates, icon, draggable) {
 }
 
 function enableForms() {
-  enabledForm(document.querySelector('.ad-form'), 'ad-form--disabled');
-  enabledForm(document.querySelector('.map__filters'), 'map__filters--disabled');
+  enableForm(document.querySelector('.ad-form'), 'ad-form--disabled');
+  enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
 }
 
 export { initMap };
