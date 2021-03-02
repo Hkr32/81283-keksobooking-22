@@ -1,4 +1,4 @@
-import { prices, startCoordinates } from './data.js';
+import { startCoordinates, prices } from './data.js';
 import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
@@ -75,13 +75,17 @@ const formAddressChangeHandler = (coordinates) => {
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
 }
 
+// Сброс данных формы
 const setAdFormReset = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('reset', () => {
-    formAddressChangeHandler(startCoordinates);
+    setTimeout(() => {
+      formAddressChangeHandler(startCoordinates);
+    },0)
   });
 }
 
+// Отправка формы с новым объявлением
 const setAdFormSubmit = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
@@ -95,6 +99,7 @@ const setAdFormSubmit = () => {
   });
 }
 
+// Действия на успешную отправку формы
 const onSuccess = () => {
   const message = showMessage('#success');
   message.addEventListener('click', removeModal);
@@ -102,29 +107,24 @@ const onSuccess = () => {
   document.querySelector('.ad-form').reset();
 }
 
+// Действия на случай ошибки
 const onError = () => {
   const message = showMessage('#error');
-  const buttonRepeat = message.querySelector('.error error__button');
+  const buttonRepeat = message.querySelector('.error__button');
   message.addEventListener('click', removeModal);
   buttonRepeat.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
 }
 
+// Проверка на нажатие Esc
 const onEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     removeModal();
   }
 }
-// function onEscKeydown() {
-//   return (evt) => {
-//     if (isEscEvent(evt)) {
-//       evt.preventDefault();
-//       removeModal();
-//     }
-//   }
-// }
 
+// Удаление сообщения
 const removeModal = () => {
   removeMessage(document.querySelector('main > [data-modal="message"]'));
   document.removeEventListener('keydown', onEscKeydown);

@@ -22,11 +22,11 @@ function initMap(idMap) {
     },
   ).addTo(map);
 
-  const mainPinMarker = addPinMarker(startCoordinates, mainMapPinIcon, true)
+  const mainPinMarker = addPinMarker(startCoordinates, mainMapPinIcon, true);
 
   mainPinMarker.addTo(map);
 
-  formAddressChangeHandler(startCoordinates)
+  formAddressChangeHandler(startCoordinates);
 
   mainPinMarker.on('moveend', (evt) => {
     formAddressChangeHandler(evt.target.getLatLng());
