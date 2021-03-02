@@ -1,4 +1,3 @@
-// import { generateFakeData } from './generate.js';
 import { types } from './data.js';
 
 // Создаем карточку предложения

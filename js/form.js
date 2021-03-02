@@ -1,6 +1,9 @@
 import { prices } from './data.js';
+import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
+import { sendData } from './api.js';
+import { showMessage, removeMessage } from './message.js';
 
 // Добавляем события для формы
 function adFormHandler(form) {
@@ -8,6 +11,7 @@ function adFormHandler(form) {
   formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
   form.addEventListener('change', filterChangeHandler());
+  setAdFormSubmit();
 }
 
 // Проверяем что изменилось
@@ -68,6 +72,52 @@ function formHousingTimeChangeHandler(timeSelect) {
 function formAddressChangeHandler(coordinates) {
   const address = document.querySelector('#address');
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
+}
+
+function setAdFormSubmit() {
+  const wizardForm = document.querySelector('.ad-form');
+  wizardForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      onSuccess,
+      onError,
+      new FormData(evt.target),
+    );
+  });
+}
+
+function onSuccess() {
+  showMessage('#success');
+  document.addEventListener('keydown', onEscKeydown);
+  document.querySelector('main > .success').addEventListener('click', onClickToAreaModalMessage);
+  resetForm(document.querySelector('.ad-form'));
+}
+
+function onError() {
+  showMessage('#error');
+  document.addEventListener('keydown', onEscKeydown);
+  document.querySelector('main > .error').addEventListener('click', onClickToAreaModalMessage);
+  document.querySelector('main > .error error__button').addEventListener('click', onClickToAreaModalMessage);
+}
+
+function onEscKeydown(evt) {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    // removeMessage(document.querySelector('main > .success'));
+    removeMessage(document.querySelector('main > .error'));
+    // document.querySelector('main > .success').remove();
+  }
+}
+function onClickToAreaModalMessage(evt) {
+  // removeMessage(evt.target);
+  // removeMessage(document.querySelector('main > .success'));
+  removeMessage(document.querySelector('main > .error'));
+  // evt.target.remove();
+}
+
+function resetForm(form) {
+  form.reset();
 }
 
 export { adFormHandler, formAddressChangeHandler };
