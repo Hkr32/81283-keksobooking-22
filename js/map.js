@@ -2,9 +2,10 @@
 
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
-import { formAddressChangeHandler } from './form.js';
+import { formAddressChangeHandler, getDataFromApi } from './form.js';
 import { generateArrayFakeData } from './generate.js';
 import { generateCard } from './card.js';
+import { getData } from './api.js';
 
 function initMap(idMap) {
   const map = L.map(idMap);
@@ -32,7 +33,11 @@ function initMap(idMap) {
     formAddressChangeHandler(evt.target.getLatLng());
   });
 
-  const points = generateArrayFakeData(5);
+  // @todo not work
+  const points = getDataFromApi();
+
+  console.log(points)
+
   points.forEach((point) => {
     const coordinates = {
       lat: point.location.x,

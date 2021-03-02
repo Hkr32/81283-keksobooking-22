@@ -2,8 +2,34 @@ import { startCoordinates, prices } from './data.js';
 import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
-import { sendData } from './api.js';
+import { getData, sendData } from './api.js';
 import { showMessage, removeMessage } from './message.js';
+
+//
+const getDataFromApi = getData(
+  (points) => {
+    onSuccessData(points)
+    // return points
+  },
+  (error) => {
+    errorData(error)
+  },
+);
+
+const onSuccessData = (points) => {
+  console.log(points)
+  return points
+}
+
+//
+const errorData = (error) => {
+  console.log(error)
+  const message = showMessage('#error-fetch');
+  const buttonRepeat = message.querySelector('.error__button');
+  message.addEventListener('click', removeModal);
+  buttonRepeat.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
+}
 
 // Добавляем события для формы
 const adFormHandler = (form) => {
@@ -130,4 +156,4 @@ const removeModal = () => {
   document.removeEventListener('keydown', onEscKeydown);
 }
 
-export { adFormHandler, formAddressChangeHandler };
+export { adFormHandler, formAddressChangeHandler, getDataFromApi };
