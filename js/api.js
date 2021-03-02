@@ -12,17 +12,18 @@ function sendData (onSuccess, onFail, body) {
     {
       method: 'POST',
       body,
+      credentials: 'same-origin',
     },
   )
     .then((response) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        onFail();
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail();
     });
 }
 

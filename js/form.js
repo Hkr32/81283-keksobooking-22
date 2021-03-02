@@ -1,4 +1,4 @@
-import { prices } from './data.js';
+import { prices, startCoordinates } from './data.js';
 import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
@@ -12,6 +12,7 @@ function adFormHandler(form) {
   initValidationAdForm();
   form.addEventListener('change', filterChangeHandler());
   setAdFormSubmit();
+  setAdFormReset();
 }
 
 // Проверяем что изменилось
@@ -74,6 +75,15 @@ function formAddressChangeHandler(coordinates) {
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
 }
 
+function setAdFormReset() {
+  const wizardForm = document.querySelector('.ad-form');
+  wizardForm.addEventListener('reset', (evt) => {
+
+    console.log('reset');
+    formAddressChangeHandler(startCoordinates);
+  });
+}
+
 function setAdFormSubmit() {
   const wizardForm = document.querySelector('.ad-form');
   wizardForm.addEventListener('submit', (evt) => {
@@ -88,36 +98,37 @@ function setAdFormSubmit() {
 }
 
 function onSuccess() {
-  showMessage('#success');
-  document.addEventListener('keydown', onEscKeydown);
-  document.querySelector('main > .success').addEventListener('click', onClickToAreaModalMessage);
-  resetForm(document.querySelector('.ad-form'));
+  const message = showMessage('#success');
+  document.addEventListener('keydown', (evt) => {
+    onEscKeydown(evt, message);
+  });
+  message.addEventListener('click', () => {
+    removeMessage(message);
+  });
+  document.querySelector('.ad-form').reset();
 }
 
 function onError() {
-  showMessage('#error');
-  document.addEventListener('keydown', onEscKeydown);
-  document.querySelector('main > .error').addEventListener('click', onClickToAreaModalMessage);
-  document.querySelector('main > .error error__button').addEventListener('click', onClickToAreaModalMessage);
+  const message = showMessage('#error');
+  document.addEventListener('keydown', (evt) => {
+    onEscKeydown(evt, document.querySelector('main > .error'));
+  });
+  message.addEventListener('click', () => {
+    removeMessage(document.querySelector('main > .error'));
+  });
+  document.querySelector('main > .error error__button').addEventListener('click', () => {
+    removeMessage(document.querySelector('main > .error'));
+  });
 }
 
-function onEscKeydown(evt) {
+function onEscKeydown(evt, el) {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     // removeMessage(document.querySelector('main > .success'));
-    removeMessage(document.querySelector('main > .error'));
+    // removeMessage(document.querySelector('main > .error'));
+    removeMessage(el);
     // document.querySelector('main > .success').remove();
   }
-}
-function onClickToAreaModalMessage(evt) {
-  // removeMessage(evt.target);
-  // removeMessage(document.querySelector('main > .success'));
-  removeMessage(document.querySelector('main > .error'));
-  // evt.target.remove();
-}
-
-function resetForm(form) {
-  form.reset();
 }
 
 export { adFormHandler, formAddressChangeHandler };

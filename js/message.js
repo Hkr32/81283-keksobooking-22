@@ -4,10 +4,13 @@ function showMessage(selector) {
   const message = template.cloneNode(true);
 
   document.querySelector('main').appendChild(message);
+
+  return message;
 }
 
 // Удаляем сообщение из разметки
 function removeMessage(elementForRemove) {
+  console.log(elementForRemove)
   elementForRemove.remove();
 }
 
