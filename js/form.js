@@ -6,7 +6,7 @@ import { sendData } from './api.js';
 import { showMessage, removeMessage } from './message.js';
 
 // Добавляем события для формы
-function adFormHandler(form) {
+const adFormHandler = (form) => {
   disableForm(form, 'ad-form--disabled');
   formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
@@ -16,7 +16,7 @@ function adFormHandler(form) {
 }
 
 // Проверяем что изменилось
-function filterChangeHandler() {
+const filterChangeHandler = () => {
   return (evt) => {
     if (evt.target) {
       switch (evt.target.id) {
@@ -38,12 +38,12 @@ function filterChangeHandler() {
 }
 
 // Действия на изменения количества комнат
-function formRoomsChangeHandler(roomNumberSelect) {
+const formRoomsChangeHandler = (roomNumberSelect) => {
   const roomNumber = roomNumberSelect.options[roomNumberSelect.selectedIndex].value;
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
-  capacitySelectOptions.forEach(function (formElement) {
+  capacitySelectOptions.forEach((formElement) => {
     if (formElement.value == 0 && roomNumber == 100) {
       formElement.removeAttribute('disabled');
     } else if (formElement.value <= roomNumber && formElement.value != 0 && roomNumber != 100) {
@@ -55,7 +55,7 @@ function formRoomsChangeHandler(roomNumberSelect) {
 }
 
 // Действия на изменения типа жилья
-function formHousingTypeChangeHandler(housingTypeSelect) {
+const formHousingTypeChangeHandler = (housingTypeSelect) => {
   const price = prices[housingTypeSelect.options[housingTypeSelect.selectedIndex].value];
   const priceInput = document.querySelector('#price');
   priceInput.setAttribute('placeholder', price);
@@ -63,19 +63,19 @@ function formHousingTypeChangeHandler(housingTypeSelect) {
 }
 
 // Действия на изменения времени заезда и выезда
-function formHousingTimeChangeHandler(timeSelect) {
+const formHousingTimeChangeHandler = (timeSelect) => {
   const timeValue = timeSelect.options[timeSelect.selectedIndex].value;
   document.querySelector('#timein').value = timeValue;
   document.querySelector('#timeout').value = timeValue;
 }
 
 // Действия на изменения координат адреса
-function formAddressChangeHandler(coordinates) {
+const formAddressChangeHandler = (coordinates) => {
   const address = document.querySelector('#address');
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
 }
 
-function setAdFormReset() {
+const setAdFormReset = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('reset', () => {
     formAddressChangeHandler(startCoordinates);
