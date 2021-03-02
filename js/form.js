@@ -76,59 +76,58 @@ function formAddressChangeHandler(coordinates) {
 }
 
 function setAdFormReset() {
-  const wizardForm = document.querySelector('.ad-form');
-  wizardForm.addEventListener('reset', (evt) => {
-
-    console.log('reset');
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('reset', () => {
     formAddressChangeHandler(startCoordinates);
   });
 }
 
-function setAdFormSubmit() {
-  const wizardForm = document.querySelector('.ad-form');
-  wizardForm.addEventListener('submit', (evt) => {
+const setAdFormSubmit = () => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      onSuccess,
-      onError,
+      () => onSuccess(),
+      () => onError(),
       new FormData(evt.target),
     );
   });
 }
 
-function onSuccess() {
+const onSuccess = () => {
   const message = showMessage('#success');
-  document.addEventListener('keydown', (evt) => {
-    onEscKeydown(evt, message);
-  });
-  message.addEventListener('click', () => {
-    removeMessage(message);
-  });
+  message.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
   document.querySelector('.ad-form').reset();
 }
 
-function onError() {
+const onError = () => {
   const message = showMessage('#error');
-  document.addEventListener('keydown', (evt) => {
-    onEscKeydown(evt, document.querySelector('main > .error'));
-  });
-  message.addEventListener('click', () => {
-    removeMessage(document.querySelector('main > .error'));
-  });
-  document.querySelector('main > .error error__button').addEventListener('click', () => {
-    removeMessage(document.querySelector('main > .error'));
-  });
+  const buttonRepeat = message.querySelector('.error error__button');
+  message.addEventListener('click', removeModal);
+  buttonRepeat.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
 }
 
-function onEscKeydown(evt, el) {
+const onEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    // removeMessage(document.querySelector('main > .success'));
-    // removeMessage(document.querySelector('main > .error'));
-    removeMessage(el);
-    // document.querySelector('main > .success').remove();
+    removeModal();
   }
+}
+// function onEscKeydown() {
+//   return (evt) => {
+//     if (isEscEvent(evt)) {
+//       evt.preventDefault();
+//       removeModal();
+//     }
+//   }
+// }
+
+const removeModal = () => {
+  removeMessage(document.querySelector('main > [data-modal="message"]'));
+  document.removeEventListener('keydown', onEscKeydown);
 }
 
 export { adFormHandler, formAddressChangeHandler };

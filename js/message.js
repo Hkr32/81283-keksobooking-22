@@ -10,7 +10,6 @@ function showMessage(selector) {
 
 // Удаляем сообщение из разметки
 function removeMessage(elementForRemove) {
-  console.log(elementForRemove)
   elementForRemove.remove();
 }
 

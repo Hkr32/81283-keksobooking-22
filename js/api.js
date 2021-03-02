@@ -6,8 +6,8 @@ function getData (onSuccess) {
     });
 }
 
-function sendData (onSuccess, onFail, body) {
-  return fetch(
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
     'https://22.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
