@@ -6,4 +6,4 @@ adFormHandler(document.querySelector('.ad-form'));
 
 disableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
 
-initMap('map-canvas');
+initMap();

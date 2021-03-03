@@ -1,11 +1,11 @@
-const getData = (onSuccess, onFail) => () => {
-  return fetch('https://22.javascript.pages.academy/keksobooking/data')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
 
-      throw new Error(`${response.status} ${response.statusText}`);
+import { isEscEvent } from './util.js';
+import { showMessage, removeMessage } from './message.js';
+
+const getData = (onSuccess, onFail) => {
+  fetch('https://22.javascript.pages.academy/keksobooking/data')
+    .then((response) => {
+      return response.json();
     })
     .then((json) => {
       onSuccess(json);
@@ -31,9 +31,32 @@ const sendData = (onSuccess, onFail, body) => {
         throw new Error(`${response.status} ${response.statusText}`);
       }
     })
-    .catch(() => {
-      onFail();
+    .catch((error) => {
+      onFail(error);
     });
 }
 
-export { getData, sendData };
+//
+const errorGetData = (error) => {
+  const message = showMessage('#error-fetch');
+  const buttonRepeat = message.querySelector('.error__button');
+  message.addEventListener('click', removeModal);
+  buttonRepeat.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
+}
+
+// Проверка на нажатие Esc
+const onEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    removeModal();
+  }
+}
+
+// Удаление сообщения
+const removeModal = () => {
+  removeMessage(document.querySelector('main > [data-modal="message"]'));
+  document.removeEventListener('keydown', onEscKeydown);
+}
+
+export { getData, sendData, errorGetData };

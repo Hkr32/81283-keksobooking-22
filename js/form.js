@@ -4,32 +4,7 @@ import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
 import { getData, sendData } from './api.js';
 import { showMessage, removeMessage } from './message.js';
-
-//
-const getDataFromApi = getData(
-  (points) => {
-    onSuccessData(points)
-    // return points
-  },
-  (error) => {
-    errorData(error)
-  },
-);
-
-const onSuccessData = (points) => {
-  console.log(points)
-  return points
-}
-
-//
-const errorData = (error) => {
-  console.log(error)
-  const message = showMessage('#error-fetch');
-  const buttonRepeat = message.querySelector('.error__button');
-  message.addEventListener('click', removeModal);
-  buttonRepeat.addEventListener('click', removeModal);
-  document.addEventListener('keydown', onEscKeydown);
-}
+import { changeMainMarkerCoordinates } from './map.js';
 
 // Добавляем события для формы
 const adFormHandler = (form) => {
@@ -107,6 +82,7 @@ const setAdFormReset = () => {
   adForm.addEventListener('reset', () => {
     setTimeout(() => {
       formAddressChangeHandler(startCoordinates);
+      changeMainMarkerCoordinates(startCoordinates);
     },0)
   });
 }
@@ -156,4 +132,4 @@ const removeModal = () => {
   document.removeEventListener('keydown', onEscKeydown);
 }
 
-export { adFormHandler, formAddressChangeHandler, getDataFromApi };
+export { adFormHandler, formAddressChangeHandler };
