@@ -64,7 +64,7 @@ function generatePinMarker(coordinates, icon, draggable) {
 // Добавление маркеров на карту
 function addMarkersToMap(points) {
   points.forEach((point) => {
-    const marker = generatePinMarker(point.location, L.icon(mapPinIcon), false);
+    const marker = generatePinMarker(point.location, mapPinIcon, false);
 
     marker
       .addTo(map)

@@ -8,7 +8,7 @@ function getData(onSuccess, onFail) {
       }
     })
     .then((json) => {
-      return onSuccess(json);
+      onSuccess(json);
     })
     .catch(() => {
       onFail();

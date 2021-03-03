@@ -1,13 +1,12 @@
 import { startCoordinates, prices } from './data.js';
-import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
 import { sendData } from './api.js';
-import { showMessage, removeMessage } from './message.js';
+import { messageForSuccessSendData, messageForErrorSendData } from './message.js';
 import { changeMainMarkerCoordinates } from './map.js';
 
 // Добавляем события для формы
-const adFormHandler = (form) => {
+function adFormHandler(form) {
   disableForm(form, 'ad-form--disabled');
   formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
@@ -17,7 +16,7 @@ const adFormHandler = (form) => {
 }
 
 // Проверяем что изменилось
-const filterChangeHandler = () => {
+function filterChangeHandler() {
   return (evt) => {
     if (evt.target) {
       switch (evt.target.id) {
@@ -39,7 +38,7 @@ const filterChangeHandler = () => {
 }
 
 // Действия на изменения количества комнат
-const formRoomsChangeHandler = (roomNumberSelect) => {
+function formRoomsChangeHandler(roomNumberSelect) {
   const roomNumber = roomNumberSelect.options[roomNumberSelect.selectedIndex].value;
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
@@ -56,7 +55,7 @@ const formRoomsChangeHandler = (roomNumberSelect) => {
 }
 
 // Действия на изменения типа жилья
-const formHousingTypeChangeHandler = (housingTypeSelect) => {
+function formHousingTypeChangeHandler(housingTypeSelect) {
   const price = prices[housingTypeSelect.options[housingTypeSelect.selectedIndex].value];
   const priceInput = document.querySelector('#price');
   priceInput.setAttribute('placeholder', price);
@@ -64,20 +63,20 @@ const formHousingTypeChangeHandler = (housingTypeSelect) => {
 }
 
 // Действия на изменения времени заезда и выезда
-const formHousingTimeChangeHandler = (timeSelect) => {
+function formHousingTimeChangeHandler(timeSelect) {
   const timeValue = timeSelect.options[timeSelect.selectedIndex].value;
   document.querySelector('#timein').value = timeValue;
   document.querySelector('#timeout').value = timeValue;
 }
 
 // Действия на изменения координат адреса
-const formAddressChangeHandler = (coordinates) => {
+function formAddressChangeHandler(coordinates) {
   const address = document.querySelector('#address');
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
 }
 
 // Сброс данных формы
-const setAdFormReset = () => {
+function setAdFormReset() {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('reset', () => {
     setTimeout(() => {
@@ -88,48 +87,17 @@ const setAdFormReset = () => {
 }
 
 // Отправка формы с новым объявлением
-const setAdFormSubmit = () => {
+function setAdFormSubmit() {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSuccess(),
-      () => onError(),
+      () => messageForSuccessSendData(),
+      () => messageForErrorSendData(),
       new FormData(evt.target),
     );
   });
-}
-
-// Действия на успешную отправку формы
-const onSuccess = () => {
-  const message = showMessage('#success');
-  message.addEventListener('click', removeModal);
-  document.addEventListener('keydown', onEscKeydown);
-  document.querySelector('.ad-form').reset();
-}
-
-// Действия на случай ошибки
-const onError = () => {
-  const message = showMessage('#error');
-  const buttonRepeat = message.querySelector('.error__button');
-  message.addEventListener('click', removeModal);
-  buttonRepeat.addEventListener('click', removeModal);
-  document.addEventListener('keydown', onEscKeydown);
-}
-
-// Проверка на нажатие Esc
-const onEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-    removeModal();
-  }
-}
-
-// Удаление сообщения
-const removeModal = () => {
-  removeMessage(document.querySelector('main > [data-modal="message"]'));
-  document.removeEventListener('keydown', onEscKeydown);
 }
 
 export { adFormHandler, formAddressChangeHandler };

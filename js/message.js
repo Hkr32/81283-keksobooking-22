@@ -15,6 +15,23 @@ function removeMessage(elementForRemove) {
   elementForRemove.remove();
 }
 
+// Сообщение после успешного добавления объявления
+function messageForSuccessSendData() {
+  const message = showMessage('#success');
+  message.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
+  document.querySelector('.ad-form').reset();
+}
+
+// Сообщение в случае ошибки добавления объявления
+function messageForErrorSendData() {
+  const message = showMessage('#error');
+  const buttonRepeat = message.querySelector('.error__button');
+  message.addEventListener('click', removeModal);
+  buttonRepeat.addEventListener('click', removeModal);
+  document.addEventListener('keydown', onEscKeydown);
+}
+
 // Сообщение об ошибки при получении данных
 function messageForErrorGetData() {
   const message = showMessage('#error-fetch');
@@ -38,4 +55,10 @@ function onEscKeydown(evt) {
   }
 }
 
-export { showMessage, removeMessage, messageForErrorGetData };
+export {
+  showMessage,
+  removeMessage,
+  messageForErrorGetData,
+  messageForSuccessSendData,
+  messageForErrorSendData
+};
