@@ -1,22 +1,22 @@
-
-import { isEscEvent } from './util.js';
-import { showMessage, removeMessage } from './message.js';
-
-const getData = (onSuccess, onFail) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+function getData(onSuccess, onFail) {
+  return fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
     })
     .then((json) => {
-      onSuccess(json);
+      return onSuccess(json);
     })
-    .catch((err) => {
-      onFail(err);
+    .catch(() => {
+      onFail();
     });
 }
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch(
+function sendData(onSuccess, onFail, body) {
+  return fetch(
     'https://22.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
@@ -36,27 +36,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 }
 
-//
-const errorGetData = (error) => {
-  const message = showMessage('#error-fetch');
-  const buttonRepeat = message.querySelector('.error__button');
-  message.addEventListener('click', removeModal);
-  buttonRepeat.addEventListener('click', removeModal);
-  document.addEventListener('keydown', onEscKeydown);
-}
-
-// Проверка на нажатие Esc
-const onEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-    removeModal();
-  }
-}
-
-// Удаление сообщения
-const removeModal = () => {
-  removeMessage(document.querySelector('main > [data-modal="message"]'));
-  document.removeEventListener('keydown', onEscKeydown);
-}
-
-export { getData, sendData, errorGetData };
+export { getData, sendData };

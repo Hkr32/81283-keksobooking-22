@@ -3,13 +3,13 @@
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
-// import { generateArrayFakeData } from './generate.js';
+import { messageForErrorGetData } from './message.js';
 import { generateCard } from './card.js';
-import { getData, errorGetData } from './api.js';
+import { getData } from './api.js';
 
 const ID_MAP = 'map-canvas';
 const map = L.map(ID_MAP);
-const mainPinMarker = addPinMarker(startCoordinates, mainMapPinIcon, true);
+const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
 
 function initMap() {
   map.on('load', enableForms);
@@ -32,22 +32,24 @@ function initMap() {
     formAddressChangeHandler(evt.target.getLatLng());
   });
 
-  //
+  // Получение списка точек
   getData(
     (points) => {
       addMarkersToMap(points);
     },
     (error) => {
-      errorGetData(error);
+      messageForErrorGetData(error);
     },
   );
 }
 
-const changeMainMarkerCoordinates = (coordinates) => {
+// Изменение координат главного маркера
+function changeMainMarkerCoordinates(coordinates) {
   mainPinMarker.setLatLng(coordinates);
 }
 
-function addPinMarker(coordinates, icon, draggable) {
+// Создание маркера
+function generatePinMarker(coordinates, icon, draggable) {
   const marker = L.marker(
     coordinates,
     {
@@ -59,15 +61,10 @@ function addPinMarker(coordinates, icon, draggable) {
   return marker;
 }
 
-const addMarkersToMap = (points) => {
+// Добавление маркеров на карту
+function addMarkersToMap(points) {
   points.forEach((point) => {
-    const icon = L.icon(mapPinIcon);
-    const marker = L.marker(
-      point.location,
-      {
-        icon,
-      },
-    );
+    const marker = generatePinMarker(point.location, L.icon(mapPinIcon), false);
 
     marker
       .addTo(map)
@@ -80,6 +77,7 @@ const addMarkersToMap = (points) => {
   });
 }
 
+// Активация форм
 function enableForms() {
   enableForm(document.querySelector('.ad-form'), 'ad-form--disabled');
   enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');

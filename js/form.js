@@ -2,7 +2,7 @@ import { startCoordinates, prices } from './data.js';
 import { isEscEvent } from './util.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
-import { getData, sendData } from './api.js';
+import { sendData } from './api.js';
 import { showMessage, removeMessage } from './message.js';
 import { changeMainMarkerCoordinates } from './map.js';
 
