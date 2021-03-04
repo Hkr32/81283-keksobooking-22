@@ -5,6 +5,8 @@ const MAX_PRICE_LENGTH = 1000000;
 const adForm = {
   title: document.querySelector('#title'),
   price: document.querySelector('#price'),
+  room: document.querySelector('#room_number'),
+  capacity: document.querySelector('#capacity'),
 };
 
 function addRequireEvent(form) {
@@ -46,6 +48,22 @@ function initValidationAdForm() {
       adForm.price.setCustomValidity('');
     }
   });
+
+  adForm.room.addEventListener('change', checkRooms);
+  adForm.capacity.addEventListener('change', checkRooms);
+}
+
+function checkRooms() {
+  const rooms = adForm.room.value;
+  const places = adForm.capacity.value;
+
+  if (rooms == 100 && places != 0) {
+    adForm.room.setCustomValidity('Нужно выбрать 100 комнат');
+    adForm.capacity.setCustomValidity('Нужно выбрать количество мест: не для гостей');
+  } else if (rooms < places && places != 0) {
+    adForm.room.setCustomValidity('Нужно выбрать меньше комнат чем мест');
+    adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
+  }
 }
 
 export { initValidationAdForm };
