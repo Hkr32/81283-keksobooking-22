@@ -3,12 +3,15 @@
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
-import { generateArrayFakeData } from './generate.js';
+import { messageForErrorGetData } from './message.js';
 import { generateCard } from './card.js';
+import { getData } from './api.js';
 
-function initMap(idMap) {
-  const map = L.map(idMap);
+const ID_MAP = 'map-canvas';
+const map = L.map(ID_MAP);
+const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
 
+function initMap() {
   map.on('load', enableForms);
   map.setView({
     lat: 35.6836,
@@ -22,29 +25,46 @@ function initMap(idMap) {
     },
   ).addTo(map);
 
-  const mainPinMarker = addPinMarker(startCoordinates, mainMapPinIcon, true)
-
   mainPinMarker.addTo(map);
 
-  formAddressChangeHandler(startCoordinates)
-
+  formAddressChangeHandler(startCoordinates);
   mainPinMarker.on('moveend', (evt) => {
     formAddressChangeHandler(evt.target.getLatLng());
   });
 
-  const points = generateArrayFakeData(5);
+  // Получение списка точек
+  getData(
+    (points) => {
+      addMarkersToMap(points);
+    },
+    (error) => {
+      messageForErrorGetData(error);
+    },
+  );
+}
+
+// Изменение координат главного маркера
+function changeMainMarkerCoordinates(coordinates) {
+  mainPinMarker.setLatLng(coordinates);
+}
+
+// Создание маркера
+function generatePinMarker(coordinates, icon, draggable) {
+  const marker = L.marker(
+    coordinates,
+    {
+      draggable,
+      icon: L.icon(icon),
+    },
+  );
+
+  return marker;
+}
+
+// Добавление маркеров на карту
+function addMarkersToMap(points) {
   points.forEach((point) => {
-    const coordinates = {
-      lat: point.location.x,
-      lng: point.location.y,
-    }
-    const icon = L.icon(mapPinIcon);
-    const marker = L.marker(
-      coordinates,
-      {
-        icon,
-      },
-    );
+    const marker = generatePinMarker(point.location, mapPinIcon, false);
 
     marker
       .addTo(map)
@@ -57,21 +77,10 @@ function initMap(idMap) {
   });
 }
 
-function addPinMarker(coordinates, icon, draggable) {
-  const marker = L.marker(
-    coordinates,
-    {
-      draggable,
-      icon: L.icon(icon),
-    },
-  );
-
-  return marker;
-}
-
+// Активация форм
 function enableForms() {
   enableForm(document.querySelector('.ad-form'), 'ad-form--disabled');
   enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
 }
 
-export { initMap };
+export { initMap, changeMainMarkerCoordinates };

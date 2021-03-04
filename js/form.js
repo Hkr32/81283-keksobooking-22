@@ -1,6 +1,9 @@
-import { prices } from './data.js';
+import { startCoordinates, prices } from './data.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm } from './validation.js';
+import { sendData } from './api.js';
+import { messageForSuccessSendData, messageForErrorSendData } from './message.js';
+import { changeMainMarkerCoordinates } from './map.js';
 
 // Добавляем события для формы
 function adFormHandler(form) {
@@ -8,6 +11,8 @@ function adFormHandler(form) {
   formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
   form.addEventListener('change', filterChangeHandler());
+  setAdFormSubmit();
+  setAdFormReset();
 }
 
 // Проверяем что изменилось
@@ -38,7 +43,7 @@ function formRoomsChangeHandler(roomNumberSelect) {
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
-  capacitySelectOptions.forEach(function (formElement) {
+  capacitySelectOptions.forEach((formElement) => {
     if (formElement.value == 0 && roomNumber == 100) {
       formElement.removeAttribute('disabled');
     } else if (formElement.value <= roomNumber && formElement.value != 0 && roomNumber != 100) {
@@ -68,6 +73,31 @@ function formHousingTimeChangeHandler(timeSelect) {
 function formAddressChangeHandler(coordinates) {
   const address = document.querySelector('#address');
   address.value = coordinates.lat.toFixed(5) + ', ' + coordinates.lng.toFixed(5);
+}
+
+// Сброс данных формы
+function setAdFormReset() {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('reset', () => {
+    setTimeout(() => {
+      formAddressChangeHandler(startCoordinates);
+      changeMainMarkerCoordinates(startCoordinates);
+    },0)
+  });
+}
+
+// Отправка формы с новым объявлением
+function setAdFormSubmit() {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => messageForSuccessSendData(),
+      () => messageForErrorSendData(),
+      new FormData(evt.target),
+    );
+  });
 }
 
 export { adFormHandler, formAddressChangeHandler };

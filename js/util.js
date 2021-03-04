@@ -1,3 +1,8 @@
+// Проверка на клавишу Esc
+function isEscEvent(evt) {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+}
+
 // Функция, возвращающая случайное целое число из переданного диапазона включительно
 function getRandomIntInclusive(min = 0, max = 0) {
   if (min < 0 || max < 0) {
@@ -64,5 +69,6 @@ export {
   getRandomIntInclusive,
   getRandomIntFloatInclusive,
   getRandomElementFromArray,
-  getRandomElementsFromArray
+  getRandomElementsFromArray,
+  isEscEvent
 };
