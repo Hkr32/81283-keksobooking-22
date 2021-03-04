@@ -1,6 +1,6 @@
 import { startCoordinates, prices } from './data.js';
 import { disableForm } from './helper.js';
-import { initValidationAdForm } from './validation.js';
+import { initValidationAdForm, validateAdForm } from './validation.js';
 import { sendData } from './api.js';
 import { messageForSuccessSendData, messageForErrorSendData } from './message.js';
 import { changeMainMarkerCoordinates } from './map.js';
@@ -92,11 +92,13 @@ function setAdFormSubmit() {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
-      () => messageForSuccessSendData(),
-      () => messageForErrorSendData(),
-      new FormData(evt.target),
-    );
+    validateAdForm();
+
+    // sendData(
+    //   () => messageForSuccessSendData(),
+    //   () => messageForErrorSendData(),
+    //   new FormData(evt.target),
+    // );
   });
 }
 

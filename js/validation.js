@@ -24,33 +24,17 @@ function addRequireEvent(form) {
 function initValidationAdForm() {
   addRequireEvent(adForm);
 
-  adForm.title.addEventListener('input', () => {
-    const valueLength = adForm.title.value.length;
-
-    if (valueLength < MIN_TITLE_LENGTH) {
-      adForm.title.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
-    } else if (valueLength > MAX_TITLE_LENGTH) {
-      adForm.title.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
-    } else {
-      adForm.title.setCustomValidity('');
-    }
-  });
-
-  adForm.price.addEventListener('input', () => {
-    const price = Number(adForm.price.value);
-    const min = Number(adForm.price.getAttribute('min'));
-
-    if (price < min) {
-      adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
-    } else if (price > MAX_PRICE_LENGTH) {
-      adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
-    } else {
-      adForm.price.setCustomValidity('');
-    }
-  });
-
+  adForm.title.addEventListener('input', checkTitle);
+  adForm.price.addEventListener('input', checkPrice);
   adForm.room.addEventListener('change', checkRooms);
   adForm.capacity.addEventListener('change', checkRooms);
+}
+
+function validateAdForm() {
+  checkTitle();
+  checkPrice();
+  checkRooms();
+  checkRooms();
 }
 
 function checkRooms() {
@@ -66,4 +50,29 @@ function checkRooms() {
   }
 }
 
-export { initValidationAdForm };
+function checkPrice() {
+  const price = Number(adForm.price.value);
+  const min = Number(adForm.price.getAttribute('min'));
+
+  if (price < min) {
+    adForm.price.setCustomValidity('Введенное число МЕНЬШЕ минимального значения: ' + min);
+  } else if (price > MAX_PRICE_LENGTH) {
+    adForm.price.setCustomValidity('Введенное число БОЛЬШЕ максимального значения: ' + MAX_PRICE_LENGTH);
+  } else {
+    adForm.price.setCustomValidity('');
+  }
+}
+
+function checkTitle() {
+  const valueLength = adForm.title.value.length;
+
+  if (valueLength < MIN_TITLE_LENGTH) {
+    adForm.title.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
+  } else if (valueLength > MAX_TITLE_LENGTH) {
+    adForm.title.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
+  } else {
+    adForm.title.setCustomValidity('');
+  }
+}
+
+export { initValidationAdForm, validateAdForm };
