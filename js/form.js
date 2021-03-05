@@ -11,8 +11,8 @@ function adFormHandler(form) {
   formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
   form.addEventListener('change', filterChangeHandler());
-  setAdFormSubmit();
   setAdFormReset();
+  setAdFormSubmit();
 }
 
 // Проверяем что изменилось
@@ -88,17 +88,22 @@ function setAdFormReset() {
 
 // Отправка формы с новым объявлением
 function setAdFormSubmit() {
+  // debugger;
+  console.log('addEvLiAdFormInit')
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    validateAdForm();
-
-    // sendData(
-    //   () => messageForSuccessSendData(),
-    //   () => messageForErrorSendData(),
-    //   new FormData(evt.target),
-    // );
+    validateAdForm()
+      .then(() => {
+        console.log('then')
+        // sendData(
+        //   () => messageForSuccessSendData(),
+        //   () => messageForErrorSendData(),
+        //   new FormData(evt.target),
+        // );
+      })
+      .catch(() => {
+        console.log('catch')
+      });
   });
 }
 

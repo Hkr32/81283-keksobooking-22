@@ -9,32 +9,33 @@ const adForm = {
   capacity: document.querySelector('#capacity'),
 };
 
-function addRequireEvent(form) {
-  for (let input in form) {
-    form[input].addEventListener('invalid', () => {
-      if (form[input].validity.valueMissing) {
-        form[input].setCustomValidity('Обязательное поле!');
-      } else {
-        form[input].setCustomValidity('');
-      }
-    });
-  }
+function addRequireEvent(input) {
+  input.addEventListener('invalid', () => {
+    if (input.validity.valueMissing) {
+      input.setCustomValidity('Обязательное поле!');
+    } else {
+      input.setCustomValidity('');
+    }
+  });
 }
 
 function initValidationAdForm() {
-  addRequireEvent(adForm);
+  addRequireEvent(adForm.price);
+  addRequireEvent(adForm.title);
+  // addRequireEvent(adForm);
 
-  adForm.title.addEventListener('input', checkTitle);
-  adForm.price.addEventListener('input', checkPrice);
-  adForm.room.addEventListener('change', checkRooms);
-  adForm.capacity.addEventListener('change', checkRooms);
+  // adForm.title.addEventListener('input', checkTitle);
+  // adForm.price.addEventListener('input', checkPrice);
+  // adForm.room.addEventListener('input', checkRooms);
+  // adForm.capacity.addEventListener('input', checkRooms);
 }
 
-function validateAdForm() {
-  checkTitle();
-  checkPrice();
-  checkRooms();
-  checkRooms();
+async function validateAdForm() {
+  await checkTitle();
+  await checkPrice();
+  await checkRooms();
+
+  return (adForm.title.checkValidity() && adForm.price.checkValidity() && adForm.room.checkValidity() && adForm.capacity.checkValidity());
 }
 
 function checkRooms() {
@@ -42,11 +43,14 @@ function checkRooms() {
   const places = adForm.capacity.value;
 
   if (rooms == 100 && places != 0) {
-    adForm.room.setCustomValidity('Нужно выбрать 100 комнат');
+    // adForm.room.setCustomValidity('Нужно выбрать 100 комнат');
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест: не для гостей');
   } else if (rooms < places && places != 0) {
-    adForm.room.setCustomValidity('Нужно выбрать меньше комнат чем мест');
+    // adForm.room.setCustomValidity('Нужно выбрать меньше комнат чем мест');
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
+  } else {
+    // adForm.room.setCustomValidity('');
+    adForm.capacity.setCustomValidity('');
   }
 }
 
