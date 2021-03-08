@@ -88,22 +88,15 @@ function setAdFormReset() {
 
 // Отправка формы с новым объявлением
 function setAdFormSubmit() {
-  // debugger;
-  console.log('addEvLiAdFormInit')
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
-    validateAdForm()
-      .then(() => {
-        console.log('then')
-        // sendData(
-        //   () => messageForSuccessSendData(),
-        //   () => messageForErrorSendData(),
-        //   new FormData(evt.target),
-        // );
-      })
-      .catch(() => {
-        console.log('catch')
-      });
+    if (validateAdForm()) {
+      sendData(
+          () => messageForSuccessSendData(),
+          () => messageForErrorSendData(),
+          new FormData(evt.target),
+        );
+    }
   });
 }
 
