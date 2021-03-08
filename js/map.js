@@ -6,10 +6,13 @@ import { formAddressChangeHandler } from './form.js';
 import { messageForErrorGetData } from './message.js';
 import { generateCard } from './card.js';
 import { getData } from './api.js';
+import { filterPoints } from './filter.js';
+import { setPoints } from './points.js';
 
 const ID_MAP = 'map-canvas';
 const map = L.map(ID_MAP);
 const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
+const markers = [];
 
 function initMap() {
   map.on('load', enableForms);
@@ -35,7 +38,8 @@ function initMap() {
   // Получение списка точек
   getData(
     (points) => {
-      addMarkersToMap(points);
+      setPoints(points);
+      addMarkersToMap();
     },
     (error) => {
       messageForErrorGetData(error);
@@ -61,11 +65,22 @@ function generatePinMarker(coordinates, icon, draggable) {
   return marker;
 }
 
+// Удаление маркеров с карты
+function removeMakersFromMap() {
+  markers.forEach((marker) => {
+    map.removeLayer(marker);
+  });
+}
+
 // Добавление маркеров на карту
-function addMarkersToMap(points) {
+function addMarkersToMap() {
+  const points = filterPoints();
+
+  removeMakersFromMap();
+
   points.forEach((point) => {
     const marker = generatePinMarker(point.location, mapPinIcon, false);
-
+    markers.push(marker);
     marker
       .addTo(map)
       .bindPopup(
@@ -83,4 +98,4 @@ function enableForms() {
   enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
 }
 
-export { initMap, changeMainMarkerCoordinates };
+export { initMap, changeMainMarkerCoordinates, addMarkersToMap };

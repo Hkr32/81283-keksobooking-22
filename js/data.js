@@ -40,4 +40,11 @@ const mapPinIcon = {
   iconAnchor: [26, 52],
 };
 
-export { offer, types, prices, startCoordinates, mainMapPinIcon, mapPinIcon };
+export {
+  offer,
+  types,
+  prices,
+  startCoordinates,
+  mainMapPinIcon,
+  mapPinIcon
+};
