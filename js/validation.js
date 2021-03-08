@@ -22,20 +22,20 @@ function addRequireEvent(input) {
 function initValidationAdForm() {
   addRequireEvent(adForm.price);
   addRequireEvent(adForm.title);
-  // addRequireEvent(adForm);
 
-  // adForm.title.addEventListener('input', checkTitle);
-  // adForm.price.addEventListener('input', checkPrice);
-  // adForm.room.addEventListener('input', checkRooms);
-  // adForm.capacity.addEventListener('input', checkRooms);
+  adForm.title.addEventListener('input', checkTitle);
+  adForm.price.addEventListener('input', checkPrice);
+  adForm.room.addEventListener('input', checkRooms);
+  adForm.capacity.addEventListener('input', checkRooms);
 }
 
-async function validateAdForm() {
-  await checkTitle();
-  await checkPrice();
-  await checkRooms();
-
-  return (adForm.title.checkValidity() && adForm.price.checkValidity() && adForm.room.checkValidity() && adForm.capacity.checkValidity());
+function validateAdForm() {
+  return (
+    adForm.title.checkValidity() 
+    && adForm.price.checkValidity() 
+    && adForm.room.checkValidity() 
+    && adForm.capacity.checkValidity()
+  );
 }
 
 function checkRooms() {
@@ -43,13 +43,12 @@ function checkRooms() {
   const places = adForm.capacity.value;
 
   if (rooms == 100 && places != 0) {
-    // adForm.room.setCustomValidity('Нужно выбрать 100 комнат');
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест: не для гостей');
+  } else if (rooms != 100 && places == 0) {
+    adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
   } else if (rooms < places && places != 0) {
-    // adForm.room.setCustomValidity('Нужно выбрать меньше комнат чем мест');
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
   } else {
-    // adForm.room.setCustomValidity('');
     adForm.capacity.setCustomValidity('');
   }
 }
