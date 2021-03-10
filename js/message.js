@@ -26,18 +26,14 @@ function messageForSuccessSendData() {
 // Сообщение в случае ошибки добавления объявления
 function messageForErrorSendData() {
   const message = showMessage('#error');
-  const buttonRepeat = message.querySelector('.error__button');
   message.addEventListener('click', removeModal);
-  buttonRepeat.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
 }
 
 // Сообщение об ошибки при получении данных
 function messageForErrorGetData() {
   const message = showMessage('#error-fetch');
-  const buttonRepeat = message.querySelector('.error__button');
   message.addEventListener('click', removeModal);
-  buttonRepeat.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
 }
 
