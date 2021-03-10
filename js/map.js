@@ -3,35 +3,14 @@
 import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
-import { messageForErrorGetData } from './message.js';
 import { generateCard } from './card.js';
-import { getData } from './api.js';
 import { filterPoints } from './filter.js';
-import { setPoints } from './points.js';
 
 const ID_MAP = 'map-canvas';
 const map = L.map(ID_MAP);
 const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
 const markers = [];
-const mapFilters = document.querySelector('.map__filters');
 const adForm = document.querySelector('.ad-form');
-
-// Инициализация страницы
-function initPage() {
-  // Инициализация карты
-  initMap();
-  // Получение данных
-  getData(
-    (points) => {
-      setPoints(points);
-      addMarkersToMap();
-      enableForm(mapFilters, 'map__filters--disabled');
-    },
-    (error) => {
-      messageForErrorGetData(error);
-    },
-  );
-}
 
 // Инициализация карты
 function initMap() {
@@ -103,4 +82,4 @@ function addMarkersToMap() {
   });
 }
 
-export { initPage, changeMainMarkerCoordinates, addMarkersToMap };
+export { initMap, changeMainMarkerCoordinates, addMarkersToMap };
