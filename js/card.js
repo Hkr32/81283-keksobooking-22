@@ -2,6 +2,7 @@ import { types } from './data.js';
 
 // Создаем карточку предложения
 function prepareCard(cardItem, item) {
+  // @todo проверка на существование данных, если их нет, то не добавлять
   cardItem.querySelector('.popup__avatar').setAttribute('src', item.author.avatar);
   cardItem.querySelector('.popup__avatar').setAttribute('alt', item.offer.title);
   cardItem.querySelector('.popup__title').textContent = item.offer.title;
