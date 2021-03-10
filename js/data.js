@@ -28,6 +28,13 @@ const startCoordinates = {
   lng: 139.76806640625003,
 };
 
+const initCoordinates = {
+  lat: 35.6836,
+  lng: 139.7588,
+};
+
+const mapZoom = 13;
+
 const mainMapPinIcon = {
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -45,6 +52,8 @@ export {
   types,
   prices,
   startCoordinates,
+  initCoordinates,
+  mapZoom,
   mainMapPinIcon,
   mapPinIcon
 };

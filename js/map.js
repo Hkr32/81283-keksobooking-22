@@ -1,6 +1,6 @@
 /* global L:readonly */
 
-import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
+import { startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
 import { generateCard } from './card.js';
@@ -17,10 +17,7 @@ function initMap() {
   map.on('load', () => {
     enableForm(adForm, 'ad-form--disabled');
   });
-  map.setView({
-    lat: 35.6836,
-    lng: 139.7588,
-  }, 13);
+  map.setView(initCoordinates, mapZoom);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
