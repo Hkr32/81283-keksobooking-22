@@ -13,9 +13,31 @@ const ID_MAP = 'map-canvas';
 const map = L.map(ID_MAP);
 const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
 const markers = [];
+const mapFilters = document.querySelector('.map__filters');
+const adForm = document.querySelector('.ad-form');
 
+// Инициализация страницы
+function initPage() {
+  // Инициализация карты
+  initMap();
+  // Получение данных
+  getData(
+    (points) => {
+      setPoints(points);
+      addMarkersToMap();
+      enableForm(mapFilters, 'map__filters--disabled');
+    },
+    (error) => {
+      messageForErrorGetData(error);
+    },
+  );
+}
+
+// Инициализация карты
 function initMap() {
-  map.on('load', enableForms);
+  map.on('load', () => {
+    enableForm(adForm, 'ad-form--disabled');
+  });
   map.setView({
     lat: 35.6836,
     lng: 139.7588,
@@ -34,17 +56,6 @@ function initMap() {
   mainPinMarker.on('moveend', (evt) => {
     formAddressChangeHandler(evt.target.getLatLng());
   });
-
-  // Получение списка точек
-  getData(
-    (points) => {
-      setPoints(points);
-      addMarkersToMap();
-    },
-    (error) => {
-      messageForErrorGetData(error);
-    },
-  );
 }
 
 // Изменение координат главного маркера
@@ -92,10 +103,4 @@ function addMarkersToMap() {
   });
 }
 
-// Активация форм
-function enableForms() {
-  enableForm(document.querySelector('.ad-form'), 'ad-form--disabled');
-  enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
-}
-
-export { initMap, changeMainMarkerCoordinates, addMarkersToMap };
+export { initPage, changeMainMarkerCoordinates, addMarkersToMap };
