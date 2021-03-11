@@ -1,9 +1,8 @@
 import { adFormHandler } from './form.js';
-import { disableForm } from './helper.js';
-import { initMap } from './map.js';
+import { mapFormHandler } from './filter.js';
+import { initPage } from './page.js';
 
 adFormHandler(document.querySelector('.ad-form'));
+mapFormHandler(document.querySelector('.map__filters'));
 
-disableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
-
-initMap();
+initPage();

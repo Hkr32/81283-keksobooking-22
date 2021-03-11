@@ -1,22 +1,23 @@
 /* global L:readonly */
 
-import { startCoordinates, mainMapPinIcon, mapPinIcon } from './data.js';
+import { startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
 import { formAddressChangeHandler } from './form.js';
-import { messageForErrorGetData } from './message.js';
 import { generateCard } from './card.js';
-import { getData } from './api.js';
+import { filterPoints } from './filter.js';
 
 const ID_MAP = 'map-canvas';
 const map = L.map(ID_MAP);
 const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
+const markers = [];
+const adForm = document.querySelector('.ad-form');
 
+// Инициализация карты
 function initMap() {
-  map.on('load', enableForms);
-  map.setView({
-    lat: 35.6836,
-    lng: 139.7588,
-  }, 13);
+  map.on('load', () => {
+    enableForm(adForm, 'ad-form--disabled');
+  });
+  map.setView(initCoordinates, mapZoom);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -31,16 +32,6 @@ function initMap() {
   mainPinMarker.on('moveend', (evt) => {
     formAddressChangeHandler(evt.target.getLatLng());
   });
-
-  // Получение списка точек
-  getData(
-    (points) => {
-      addMarkersToMap(points);
-    },
-    (error) => {
-      messageForErrorGetData(error);
-    },
-  );
 }
 
 // Изменение координат главного маркера
@@ -61,11 +52,22 @@ function generatePinMarker(coordinates, icon, draggable) {
   return marker;
 }
 
+// Удаление маркеров с карты
+function removeMakersFromMap() {
+  markers.forEach((marker) => {
+    map.removeLayer(marker);
+  });
+}
+
 // Добавление маркеров на карту
-function addMarkersToMap(points) {
+function addMarkersToMap() {
+  const points = filterPoints();
+
+  removeMakersFromMap();
+
   points.forEach((point) => {
     const marker = generatePinMarker(point.location, mapPinIcon, false);
-
+    markers.push(marker);
     marker
       .addTo(map)
       .bindPopup(
@@ -77,10 +79,4 @@ function addMarkersToMap(points) {
   });
 }
 
-// Активация форм
-function enableForms() {
-  enableForm(document.querySelector('.ad-form'), 'ad-form--disabled');
-  enableForm(document.querySelector('.map__filters'), 'map__filters--disabled');
-}
-
-export { initMap, changeMainMarkerCoordinates };
+export { initMap, changeMainMarkerCoordinates, addMarkersToMap };
