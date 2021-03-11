@@ -96,14 +96,15 @@ function formImagesChangeHandler() {
 
 // Действия на изменения количества комнат
 function formRoomsChangeHandler(roomNumberSelect) {
-  const roomNumber = roomNumberSelect.options[roomNumberSelect.selectedIndex].value;
+  const roomNumber = Number(roomNumberSelect.options[roomNumberSelect.selectedIndex].value);
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
   capacitySelectOptions.forEach((formElement) => {
-    if (formElement.value === 0 && roomNumber === 100) {
+    const formElementValue = Number(formElement.value);
+    if (formElementValue === 0 && roomNumber === 100) {
       formElement.removeAttribute('disabled');
-    } else if (formElement.value <= roomNumber && formElement.value !== 0 && roomNumber !== 100) {
+    } else if (formElementValue <= roomNumber && formElementValue !== 0 && roomNumber !== 100) {
       formElement.removeAttribute('disabled');
     } else {
       formElement.setAttribute('disabled', 'disabled');
