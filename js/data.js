@@ -1,3 +1,5 @@
+const defaultPreviewUrl = 'img/muffin-grey.svg';
+
 const offer = {
   types: ['palace', 'flat', 'house', 'bungalow'],
   times: ['12:00', '13:00', '14:00'],
@@ -48,6 +50,7 @@ const mapPinIcon = {
 };
 
 export {
+  defaultPreviewUrl,
   offer,
   types,
   prices,

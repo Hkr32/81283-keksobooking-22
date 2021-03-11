@@ -1,4 +1,4 @@
-import { startCoordinates, prices } from './data.js';
+import { startCoordinates, prices, defaultPreviewUrl } from './data.js';
 import { disableForm } from './helper.js';
 import { initValidationAdForm, validateAdForm } from './validation.js';
 import { sendData } from './api.js';
@@ -140,8 +140,20 @@ function setAdFormReset() {
     setTimeout(() => {
       formAddressChangeHandler(startCoordinates);
       changeMainMarkerCoordinates(startCoordinates);
+      resetPreview();
     },0)
   });
+}
+
+// Сброс превью изображений
+function resetPreview() {
+  const previewAvatar = document.querySelector('.ad-form-header__preview img');
+  const previewPhoto = document.querySelector('.ad-form__photo img');
+
+  previewAvatar.src = defaultPreviewUrl;
+  if (previewPhoto) {
+    previewPhoto.remove();
+  }
 }
 
 // Отправка формы с новым объявлением
