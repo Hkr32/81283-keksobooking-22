@@ -29,14 +29,12 @@ function filterPoints() {
     pointsFiltered = filterByPrice(pointsFiltered, housingPrice.value);
   }
   if (housingRooms.value !== 'any') {
-    pointsFiltered = filterByRooms(pointsFiltered, housingRooms.value);
+    pointsFiltered = filterByRooms(pointsFiltered, Number(housingRooms.value));
   }
   if (housingGuests.value !== 'any') {
-    pointsFiltered = filterByGuests(pointsFiltered, housingGuests.value);
+    pointsFiltered = filterByGuests(pointsFiltered, Number(housingGuests.value));
   }
-  if (housingFeatures.value !== 'any') {
-    pointsFiltered = filterByFeatures(pointsFiltered, housingFeatures.querySelectorAll('input'));
-  }
+  pointsFiltered = filterByFeatures(pointsFiltered, housingFeatures.querySelectorAll('input'));
 
   return pointsFiltered.length > pointsLimit
     ? pointsFiltered.slice(0, pointsLimit)
