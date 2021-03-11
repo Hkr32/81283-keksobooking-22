@@ -90,6 +90,7 @@ function setAdFormReset() {
 function setAdFormSubmit() {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
     if (validateAdForm()) {
       sendData(
         () => messageForSuccessSendData(),
