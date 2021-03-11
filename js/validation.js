@@ -31,9 +31,9 @@ function initValidationAdForm() {
 
 function validateAdForm() {
   return (
-    adForm.title.checkValidity() 
-    && adForm.price.checkValidity() 
-    && adForm.room.checkValidity() 
+    adForm.title.checkValidity()
+    && adForm.price.checkValidity()
+    && adForm.room.checkValidity()
     && adForm.capacity.checkValidity()
   );
 }
@@ -42,11 +42,11 @@ function checkRooms() {
   const rooms = adForm.room.value;
   const places = adForm.capacity.value;
 
-  if (rooms == 100 && places != 0) {
+  if (rooms === 100 && places !== 0) {
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест: не для гостей');
-  } else if (rooms != 100 && places == 0) {
+  } else if (rooms !== 100 && places === 0) {
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
-  } else if (rooms < places && places != 0) {
+  } else if (rooms < places && places !== 0) {
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест в соответствии количеству комнат');
   } else {
     adForm.capacity.setCustomValidity('');

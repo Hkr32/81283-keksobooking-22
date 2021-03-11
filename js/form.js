@@ -44,9 +44,9 @@ function formRoomsChangeHandler(roomNumberSelect) {
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
   capacitySelectOptions.forEach((formElement) => {
-    if (formElement.value == 0 && roomNumber == 100) {
+    if (formElement.value === 0 && roomNumber === 100) {
       formElement.removeAttribute('disabled');
-    } else if (formElement.value <= roomNumber && formElement.value != 0 && roomNumber != 100) {
+    } else if (formElement.value <= roomNumber && formElement.value !== 0 && roomNumber !== 100) {
       formElement.removeAttribute('disabled');
     } else {
       formElement.setAttribute('disabled', 'disabled');

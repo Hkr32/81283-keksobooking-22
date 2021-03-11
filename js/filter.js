@@ -22,19 +22,19 @@ function filterPoints() {
 
   let pointsFiltered = points;
 
-  if (housingType.value != 'any') {
+  if (housingType.value !== 'any') {
     pointsFiltered = filterByType(pointsFiltered, housingType.value);
   }
-  if (housingPrice.value != 'any') {
+  if (housingPrice.value !== 'any') {
     pointsFiltered = filterByPrice(pointsFiltered, housingPrice.value);
   }
-  if (housingRooms.value != 'any') {
+  if (housingRooms.value !== 'any') {
     pointsFiltered = filterByRooms(pointsFiltered, housingRooms.value);
   }
-  if (housingGuests.value != 'any') {
+  if (housingGuests.value !== 'any') {
     pointsFiltered = filterByGuests(pointsFiltered, housingGuests.value);
   }
-  if (housingFeatures.value != 'any') {
+  if (housingFeatures.value !== 'any') {
     pointsFiltered = filterByFeatures(pointsFiltered, housingFeatures.querySelectorAll('input'));
   }
 
@@ -45,7 +45,7 @@ function filterPoints() {
 
 function filterByType(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.type == filterValue;
+    return point.offer.type === filterValue;
   });
 }
 
@@ -70,13 +70,13 @@ function filterByPrice(points, filterValue) {
 
 function filterByRooms(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.rooms == filterValue;
+    return point.offer.rooms === filterValue;
   });
 }
 
 function filterByGuests(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.guests == filterValue;
+    return point.offer.guests === filterValue;
   });
 }
 
