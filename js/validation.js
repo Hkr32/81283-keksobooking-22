@@ -39,8 +39,8 @@ function validateAdForm() {
 }
 
 function checkRooms() {
-  const rooms = adForm.room.value;
-  const places = adForm.capacity.value;
+  const rooms = Number(adForm.room.value);
+  const places = Number(adForm.capacity.value);
 
   if (rooms === 100 && places !== 0) {
     adForm.capacity.setCustomValidity('Нужно выбрать количество мест: не для гостей');
