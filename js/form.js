@@ -5,6 +5,8 @@ import { sendData } from './api.js';
 import { messageForSuccessSendData, messageForErrorSendData } from './message.js';
 import { changeMainMarkerCoordinates } from './map.js';
 
+const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 // Добавляем события для формы
 function adFormHandler(form) {
   disableForm(form, 'ad-form--disabled');
@@ -20,6 +22,12 @@ function filterChangeHandler() {
   return (evt) => {
     if (evt.target) {
       switch (evt.target.id) {
+        case 'avatar':
+          formAvatarChangeHandler();
+          break;
+        case 'images':
+          formImagesChangeHandler();
+          break;
         case 'room_number':
           formRoomsChangeHandler(evt.target);
           break;
@@ -34,6 +42,55 @@ function filterChangeHandler() {
           break;
       }
     }
+  }
+}
+
+// Загрузка в предпросмотр выбранного аватара
+function formAvatarChangeHandler() {
+  const file = document.querySelector('#avatar').files[0];
+  const preview = document.querySelector('.ad-form-header__preview img');
+  const fileName = file.name.toLowerCase();
+
+  const matches = ALLOWED_FILE_TYPES.some((it) => {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      preview.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+}
+
+// Загрузка в предпросмотр выбранного изображения жилья
+function formImagesChangeHandler() {
+  const img = new Image(64, 64);
+  const file = document.querySelector('#images').files[0];
+  const previewContainer = document.querySelector('.ad-form__photo');
+  const fileName = file.name.toLowerCase();
+
+  const matches = ALLOWED_FILE_TYPES.some((it) => {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      const preview = previewContainer.querySelector('img');
+      if (preview) {
+        preview.src = reader.result;
+      } else {
+        img.src = reader.result;
+        previewContainer.appendChild(img);
+      }
+    });
+
+    reader.readAsDataURL(file);
   }
 }
 
