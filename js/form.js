@@ -92,10 +92,10 @@ function setAdFormSubmit() {
   adForm.addEventListener('submit', (evt) => {
     if (validateAdForm()) {
       sendData(
-          () => messageForSuccessSendData(),
-          () => messageForErrorSendData(),
-          new FormData(evt.target),
-        );
+        () => messageForSuccessSendData(),
+        () => messageForErrorSendData(),
+        new FormData(evt.target),
+      );
     }
   });
 }
