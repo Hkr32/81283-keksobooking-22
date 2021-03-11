@@ -1,11 +1,12 @@
 import { disableForm } from './helper.js';
 import { addMarkersToMap } from './map.js';
 import { pointsLimit, getPoints } from './points.js';
+import { debounce } from './helper.js';
 
 // Добавляем события для формы
 function mapFormHandler(form) {
   disableForm(form, 'map__filters--disabled');
-  form.addEventListener('change', addMarkersToMap);
+  form.addEventListener('change', debounce(addMarkersToMap));
 }
 
 // Фильтрация меток

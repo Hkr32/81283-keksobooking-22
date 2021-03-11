@@ -10,6 +10,7 @@ const mapFilters = document.querySelector('.map__filters');
 function initPage() {
   // Инициализация карты
   initMap();
+
   // Получение данных
   getData(
     (points) => {
