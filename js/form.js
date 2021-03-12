@@ -10,8 +10,8 @@ const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 // Добавляем события для формы
 function adFormHandler(form) {
   disableForm(form, 'ad-form--disabled');
-  formRoomsChangeHandler(document.querySelector('#room_number'));
   initValidationAdForm();
+  formRoomsChangeHandler(document.querySelector('#room_number'));
   form.addEventListener('change', filterChangeHandler());
   setAdFormReset();
   setAdFormSubmit();
