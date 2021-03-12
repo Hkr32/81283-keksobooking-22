@@ -21,7 +21,7 @@
   "dependencies": {},
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack --watch",
+    "watch": "webpack --mode development --watch",
     "start": "browser-sync start --server \"build/\" --no-ui --files \"source/**/*.js\"",
     "test": "eslint js/"
   },
