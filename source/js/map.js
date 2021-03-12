@@ -1,4 +1,5 @@
-/* global L:readonly */
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 import { startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './helper.js';
