@@ -1,7 +1,7 @@
 import { initMap, addMarkersToMap } from './map.js';
 import { getData } from './api.js';
 import { setPoints } from './points.js';
-import { enableForm } from './helper.js';
+import { enableForm } from './util.js';
 import { messageForErrorGetData } from './message.js';
 
 const mapFilters = document.querySelector('.map__filters');

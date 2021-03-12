@@ -1,7 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
-import { enableForm } from './helper.js';
+import { enableForm } from './util.js';
 import { formAddressChangeHandler } from './form.js';
 import { generateCard } from './card.js';
 import { filterPoints } from './filter.js';

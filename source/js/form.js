@@ -1,5 +1,5 @@
 import { startCoordinates, prices, defaultPreviewUrl } from './data.js';
-import { disableForm } from './helper.js';
+import { disableForm } from './util.js';
 import { initValidationAdForm, validateAdForm } from './validation.js';
 import { sendData } from './api.js';
 import { messageForSuccessSendData, messageForErrorSendData } from './message.js';

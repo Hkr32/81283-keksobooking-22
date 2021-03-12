@@ -1,7 +1,6 @@
-import { disableForm } from './helper.js';
 import { addMarkersToMap } from './map.js';
 import { pointsLimit, getPoints } from './points.js';
-import { debounce } from './util.js';
+import { disableForm, debounce } from './util.js';
 
 // Добавляем события для формы
 function mapFormHandler(form) {
