@@ -1,11 +1,12 @@
 import { disableForm } from './helper.js';
 import { addMarkersToMap } from './map.js';
 import { pointsLimit, getPoints } from './points.js';
+import { debounce } from './util.js';
 
 // Добавляем события для формы
 function mapFormHandler(form) {
   disableForm(form, 'map__filters--disabled');
-  form.addEventListener('change', addMarkersToMap);
+  form.addEventListener('change', debounce(addMarkersToMap));
 }
 
 // Фильтрация меток
@@ -21,21 +22,19 @@ function filterPoints() {
 
   let pointsFiltered = points;
 
-  if (housingType.value != 'any') {
+  if (housingType.value !== 'any') {
     pointsFiltered = filterByType(pointsFiltered, housingType.value);
   }
-  if (housingPrice.value != 'any') {
+  if (housingPrice.value !== 'any') {
     pointsFiltered = filterByPrice(pointsFiltered, housingPrice.value);
   }
-  if (housingRooms.value != 'any') {
-    pointsFiltered = filterByRooms(pointsFiltered, housingRooms.value);
+  if (housingRooms.value !== 'any') {
+    pointsFiltered = filterByRooms(pointsFiltered, Number(housingRooms.value));
   }
-  if (housingGuests.value != 'any') {
-    pointsFiltered = filterByGuests(pointsFiltered, housingGuests.value);
+  if (housingGuests.value !== 'any') {
+    pointsFiltered = filterByGuests(pointsFiltered, Number(housingGuests.value));
   }
-  if (housingFeatures.value != 'any') {
-    pointsFiltered = filterByFeatures(pointsFiltered, housingFeatures.querySelectorAll('input'));
-  }
+  pointsFiltered = filterByFeatures(pointsFiltered, housingFeatures.querySelectorAll('input'));
 
   return pointsFiltered.length > pointsLimit
     ? pointsFiltered.slice(0, pointsLimit)
@@ -44,7 +43,7 @@ function filterPoints() {
 
 function filterByType(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.type == filterValue;
+    return point.offer.type === filterValue;
   });
 }
 
@@ -69,13 +68,13 @@ function filterByPrice(points, filterValue) {
 
 function filterByRooms(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.rooms == filterValue;
+    return point.offer.rooms === filterValue;
   });
 }
 
 function filterByGuests(points, filterValue) {
   return points.filter((point) => {
-    return point.offer.guests == filterValue;
+    return point.offer.guests === filterValue;
   });
 }
 
