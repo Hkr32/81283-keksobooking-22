@@ -1,3 +1,5 @@
+import '../css/normalize.css';
+import '../css/style.css';
 import { adFormHandler } from './form.js';
 import { mapFormHandler } from './filter.js';
 import { initPage } from './page.js';

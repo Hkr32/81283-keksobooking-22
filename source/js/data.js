@@ -1,3 +1,5 @@
+const mainPin = '../img/main-pin.svg';
+const secondaryPin = '../img/pin.svg';
 const defaultPreviewUrl = 'img/muffin-grey.svg';
 
 const offer = {
@@ -38,13 +40,13 @@ const initCoordinates = {
 const mapZoom = 13;
 
 const mainMapPinIcon = {
-  iconUrl: 'img/main-pin.svg',
+  iconUrl: mainPin,
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 };
 
 const mapPinIcon = {
-  iconUrl: 'img/pin.svg',
+  iconUrl: secondaryPin,
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 };
