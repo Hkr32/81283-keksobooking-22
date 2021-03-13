@@ -2,6 +2,12 @@ const mainPin = '../img/main-pin.svg';
 const secondaryPin = '../img/pin.svg';
 const defaultPreviewUrl = 'img/muffin-grey.svg';
 
+const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const MAP_ID = 'map-canvas';
+const MAIN_URL = 'https://22.javascript.pages.academy/';
+const GET_DATA_URL = MAIN_URL + 'keksobooking/data';
+const SEND_DATA_URL = MAIN_URL + 'keksobooking';
+
 const types = {
   bungalow: 'Бунгало',
   flat: 'Квартира',
@@ -41,6 +47,10 @@ const mapPinIcon = {
 };
 
 export {
+  MAP_ID,
+  ALLOWED_FILE_TYPES,
+  GET_DATA_URL,
+  SEND_DATA_URL,
   defaultPreviewUrl,
   types,
   prices,

@@ -1,13 +1,15 @@
+// Внешние библиотеки
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
+
+// Основные
+import { MAP_ID, startCoordinates, initCoordinates, mapZoom, mainMapPinIcon, mapPinIcon } from './data.js';
 import { enableForm } from './util.js';
 import { formAddressChangeHandler } from './form.js';
 import { generateCard } from './card.js';
 import { filterPoints } from './filter.js';
 
-const ID_MAP = 'map-canvas';
-const map = L.map(ID_MAP);
+const map = L.map(MAP_ID);
 const mainPinMarker = generatePinMarker(startCoordinates, mainMapPinIcon, true);
 const markers = [];
 const adForm = document.querySelector('.ad-form');
@@ -35,7 +37,7 @@ function initMap() {
 }
 
 // Изменение координат главного маркера
-function changeMainMarkerCoordinates(coordinates) {
+function setMainMarkerCoordinates(coordinates) {
   mainPinMarker.setLatLng(coordinates);
 }
 
@@ -79,4 +81,4 @@ function addMarkersToMap() {
   });
 }
 
-export { initMap, changeMainMarkerCoordinates, addMarkersToMap };
+export { initMap, setMainMarkerCoordinates, addMarkersToMap };

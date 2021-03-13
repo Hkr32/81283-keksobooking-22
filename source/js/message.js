@@ -4,7 +4,6 @@ import { isEscEvent } from './util.js';
 function showMessage(selector) {
   const template = document.querySelector(selector).content.querySelector('div');
   const message = template.cloneNode(true);
-
   document.querySelector('main').appendChild(message);
 
   return message;
@@ -16,7 +15,7 @@ function removeMessage(elementForRemove) {
 }
 
 // Сообщение после успешного добавления объявления
-function messageForSuccessSendData() {
+function showMessageForSuccessSendData() {
   const message = showMessage('#success');
   message.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
@@ -24,14 +23,14 @@ function messageForSuccessSendData() {
 }
 
 // Сообщение в случае ошибки добавления объявления
-function messageForErrorSendData() {
+function showMessageForErrorSendData() {
   const message = showMessage('#error');
   message.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
 }
 
 // Сообщение об ошибки при получении данных
-function messageForErrorGetData() {
+function showMessageForErrorGetData() {
   const message = showMessage('#error-fetch');
   message.addEventListener('click', removeModal);
   document.addEventListener('keydown', onEscKeydown);
@@ -54,7 +53,7 @@ function onEscKeydown(evt) {
 export {
   showMessage,
   removeMessage,
-  messageForErrorGetData,
-  messageForSuccessSendData,
-  messageForErrorSendData
+  showMessageForErrorGetData,
+  showMessageForSuccessSendData,
+  showMessageForErrorSendData
 };

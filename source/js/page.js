@@ -2,7 +2,7 @@ import { initMap, addMarkersToMap } from './map.js';
 import { getData } from './api.js';
 import { setPoints } from './points.js';
 import { enableForm } from './util.js';
-import { messageForErrorGetData } from './message.js';
+import { showMessageForErrorGetData } from './message.js';
 
 const mapFilters = document.querySelector('.map__filters');
 
@@ -19,7 +19,7 @@ function initPage() {
       enableForm(mapFilters, 'map__filters--disabled');
     },
     (error) => {
-      messageForErrorGetData(error);
+      showMessageForErrorGetData(error);
     },
   );
 }
