@@ -1,4 +1,4 @@
-import { ALLOWED_FILE_TYPES, startCoordinates, prices, defaultPreviewUrl } from './data.js';
+import { FILE_TYPES, startCoordinates, prices, defaultPreviewUrl } from './data.js';
 import { disableForm } from './util.js';
 import { initValidationAdForm, validateAdForm } from './validation.js';
 import { sendData } from './api.js';
@@ -49,7 +49,7 @@ function formAvatarChangeHandler() {
   const preview = document.querySelector('.ad-form-header__preview img');
   const fileName = file.name.toLowerCase();
 
-  const matches = ALLOWED_FILE_TYPES.some((it) => {
+  const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
 
@@ -71,7 +71,7 @@ function formImagesChangeHandler() {
   const previewContainer = document.querySelector('.ad-form__photo');
   const fileName = file.name.toLowerCase();
 
-  const matches = ALLOWED_FILE_TYPES.some((it) => {
+  const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
 
