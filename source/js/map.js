@@ -43,15 +43,13 @@ function setMainMarkerCoordinates(coordinates) {
 
 // Создание маркера
 function generatePinMarker(coordinates, icon, draggable) {
-  const marker = L.marker(
+  return L.marker(
     coordinates,
     {
       draggable,
       icon: L.icon(icon),
     },
   );
-
-  return marker;
 }
 
 // Удаление маркеров с карты

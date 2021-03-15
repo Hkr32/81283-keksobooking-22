@@ -50,9 +50,7 @@ function prepareCard(cardItem, item) {
 // Генерируем нужно количество карточек предложений
 function generateCard(card) {
   const template = document.querySelector('#card').content.querySelector('article');
-  const cardElement = prepareCard(template.cloneNode(true), card);
-
-  return cardElement;
+  return prepareCard(template.cloneNode(true), card);
 }
 
 export { generateCard };
