@@ -1,11 +1,9 @@
-import { startCoordinates, prices, defaultPreviewUrl } from './data.js';
-import { disableForm } from './helper.js';
+import { ALLOWED_FILE_TYPES, startCoordinates, prices, defaultPreviewUrl } from './data.js';
+import { disableForm } from './util.js';
 import { initValidationAdForm, validateAdForm } from './validation.js';
 import { sendData } from './api.js';
-import { messageForSuccessSendData, messageForErrorSendData } from './message.js';
-import { changeMainMarkerCoordinates } from './map.js';
-
-const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+import { showMessageForSuccessSendData, showMessageForErrorSendData } from './message.js';
+import { setMainMarkerCoordinates } from './map.js';
 
 // Добавляем события для формы
 function adFormHandler(form) {
@@ -95,8 +93,8 @@ function formImagesChangeHandler() {
 }
 
 // Действия на изменения количества комнат
-function formRoomsChangeHandler(roomNumberSelect) {
-  const roomNumber = Number(roomNumberSelect.options[roomNumberSelect.selectedIndex].value);
+function formRoomsChangeHandler(selectedRoomNumber) {
+  const roomNumber = Number(selectedRoomNumber.options[selectedRoomNumber.selectedIndex].value);
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
@@ -113,16 +111,16 @@ function formRoomsChangeHandler(roomNumberSelect) {
 }
 
 // Действия на изменения типа жилья
-function formHousingTypeChangeHandler(housingTypeSelect) {
-  const price = prices[housingTypeSelect.options[housingTypeSelect.selectedIndex].value];
+function formHousingTypeChangeHandler(selectedHousingTypes) {
+  const price = prices[selectedHousingTypes.options[selectedHousingTypes.selectedIndex].value];
   const priceInput = document.querySelector('#price');
   priceInput.setAttribute('placeholder', price);
   priceInput.setAttribute('min', price);
 }
 
 // Действия на изменения времени заезда и выезда
-function formHousingTimeChangeHandler(timeSelect) {
-  const timeValue = timeSelect.options[timeSelect.selectedIndex].value;
+function formHousingTimeChangeHandler(selectedTime) {
+  const timeValue = selectedTime.options[selectedTime.selectedIndex].value;
   document.querySelector('#timein').value = timeValue;
   document.querySelector('#timeout').value = timeValue;
 }
@@ -139,9 +137,24 @@ function setAdFormReset() {
   adForm.addEventListener('reset', () => {
     setTimeout(() => {
       formAddressChangeHandler(startCoordinates);
-      changeMainMarkerCoordinates(startCoordinates);
+      setMainMarkerCoordinates(startCoordinates);
       resetPreview();
     },0)
+  });
+}
+
+// Отправка формы с новым объявлением
+function setAdFormSubmit() {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (validateAdForm()) {
+      sendData(
+        () => showMessageForSuccessSendData(),
+        () => showMessageForErrorSendData(),
+        new FormData(evt.target),
+      );
+    }
   });
 }
 
@@ -154,21 +167,6 @@ function resetPreview() {
   if (previewPhoto) {
     previewPhoto.remove();
   }
-}
-
-// Отправка формы с новым объявлением
-function setAdFormSubmit() {
-  const adForm = document.querySelector('.ad-form');
-  adForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    if (validateAdForm()) {
-      sendData(
-        () => messageForSuccessSendData(),
-        () => messageForErrorSendData(),
-        new FormData(evt.target),
-      );
-    }
-  });
 }
 
 export { adFormHandler, formAddressChangeHandler };

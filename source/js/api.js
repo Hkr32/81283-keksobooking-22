@@ -1,5 +1,7 @@
+import { GET_DATA_URL, SEND_DATA_URL } from './data.js';
+
 function getData(onSuccess, onFail) {
-  return fetch('https://22.javascript.pages.academy/keksobooking/data')
+  return fetch(GET_DATA_URL)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -17,7 +19,7 @@ function getData(onSuccess, onFail) {
 
 function sendData(onSuccess, onFail, body) {
   return fetch(
-    'https://22.javascript.pages.academy/keksobooking',
+    SEND_DATA_URL,
     {
       method: 'POST',
       body,

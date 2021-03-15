@@ -1,15 +1,12 @@
+const mainPin = '../img/main-pin.svg';
+const secondaryPin = '../img/pin.svg';
 const defaultPreviewUrl = 'img/muffin-grey.svg';
 
-const offer = {
-  types: ['palace', 'flat', 'house', 'bungalow'],
-  times: ['12:00', '13:00', '14:00'],
-  features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  photos: [
-    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-    'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-  ],
-};
+const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const MAP_ID = 'map-canvas';
+const MAIN_URL = 'https://22.javascript.pages.academy/';
+const GET_DATA_URL = MAIN_URL + 'keksobooking/data';
+const SEND_DATA_URL = MAIN_URL + 'keksobooking';
 
 const types = {
   bungalow: 'Бунгало',
@@ -38,20 +35,23 @@ const initCoordinates = {
 const mapZoom = 13;
 
 const mainMapPinIcon = {
-  iconUrl: 'img/main-pin.svg',
+  iconUrl: mainPin,
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 };
 
 const mapPinIcon = {
-  iconUrl: 'img/pin.svg',
+  iconUrl: secondaryPin,
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 };
 
 export {
+  MAP_ID,
+  ALLOWED_FILE_TYPES,
+  GET_DATA_URL,
+  SEND_DATA_URL,
   defaultPreviewUrl,
-  offer,
   types,
   prices,
   startCoordinates,
