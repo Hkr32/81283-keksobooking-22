@@ -1,5 +1,5 @@
-const mainPin = '../img/main-pin.svg';
-const secondaryPin = '../img/pin.svg';
+const mainPin = 'img/main-pin.svg';
+const secondaryPin = 'img/pin.svg';
 const defaultPreviewUrl = 'img/muffin-grey.svg';
 
 const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
