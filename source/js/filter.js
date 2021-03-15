@@ -1,6 +1,7 @@
 import { addMarkersToMap } from './map.js';
 import { pointsLimit, getPoints } from './points.js';
 import { disableForm, debounce } from './util.js';
+import { filterPrices } from './data.js';
 
 // Добавляем события для формы
 function mapFormHandler(form) {
@@ -50,15 +51,15 @@ function filterByPrice(points, filterValue) {
   switch (filterValue) {
     case 'low':
       return points.filter((point) => {
-        return point.offer.price < 10000;
+        return point.offer.price < filterPrices.low;
       });
     case 'middle':
       return points.filter((point) => {
-        return point.offer.price >= 10000 && point.offer.price <= 50000;
+        return point.offer.price >= filterPrices.low && point.offer.price <= filterPrices.high;
       });
     case 'high':
       return points.filter((point) => {
-        return point.offer.price > 50000;
+        return point.offer.price > filterPrices.high;
       });
     default:
       return points;

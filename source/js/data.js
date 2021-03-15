@@ -22,6 +22,11 @@ const prices = {
   palace: 10000,
 };
 
+const filterPrices = {
+  low: 10000,
+  high: 50000,
+};
+
 const startCoordinates = {
   lat: 35.67514743608467,
   lng: 139.76806640625003,
@@ -54,6 +59,7 @@ export {
   defaultPreviewUrl,
   types,
   prices,
+  filterPrices,
   startCoordinates,
   initCoordinates,
   mapZoom,
