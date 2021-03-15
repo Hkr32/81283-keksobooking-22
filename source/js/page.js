@@ -13,12 +13,12 @@ function initPage() {
 
   // Получение данных
   getData(
-    (points) => {
+    function(points) {
       setPoints(points);
       addMarkersToMap();
       enableForm(mapFilters, 'map__filters--disabled');
     },
-    (error) => {
+    function(error) {
       showMessageForErrorGetData(error);
     },
   );

@@ -10,7 +10,7 @@ const adFormData = {
 };
 
 function addRequireEvent(input) {
-  input.addEventListener('invalid', () => {
+  input.addEventListener('invalid', function() {
     if (input.validity.valueMissing) {
       input.setCustomValidity('Обязательное поле!');
     } else {

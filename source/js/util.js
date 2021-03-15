@@ -7,9 +7,9 @@ function isEscEvent(evt) {
 function debounce(callback, delay = 500) {
   let timeoutId;
 
-  return (...args) => {
+  return function(...args) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
+    timeoutId = setTimeout(function() {
       timeoutId = null;
       callback(...args);
     }, delay);

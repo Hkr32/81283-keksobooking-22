@@ -2,17 +2,17 @@ import { GET_DATA_URL, SEND_DATA_URL } from './data.js';
 
 function getData(onSuccess, onFail) {
   return fetch(GET_DATA_URL)
-    .then((response) => {
+    .then(function(response) {
       if (response.ok) {
         return response.json();
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
       }
     })
-    .then((json) => {
+    .then(function(json) {
       onSuccess(json);
     })
-    .catch(() => {
+    .catch(function() {
       onFail();
     });
 }
@@ -26,14 +26,14 @@ function sendData(onSuccess, onFail, body) {
       credentials: 'same-origin',
     },
   )
-    .then((response) => {
+    .then(function(response) {
       if (response.ok) {
         onSuccess();
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
       }
     })
-    .catch((error) => {
+    .catch(function(error) {
       onFail(error);
     });
 }

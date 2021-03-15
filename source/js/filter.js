@@ -42,7 +42,7 @@ function filterPoints() {
 }
 
 function filterByType(points, filterValue) {
-  return points.filter((point) => {
+  return points.filter(function(point) {
     return point.offer.type === filterValue;
   });
 }
@@ -50,15 +50,15 @@ function filterByType(points, filterValue) {
 function filterByPrice(points, filterValue) {
   switch (filterValue) {
     case 'low':
-      return points.filter((point) => {
+      return points.filter(function(point) {
         return point.offer.price < filterPrices.low;
       });
     case 'middle':
-      return points.filter((point) => {
+      return points.filter(function(point) {
         return point.offer.price >= filterPrices.low && point.offer.price <= filterPrices.high;
       });
     case 'high':
-      return points.filter((point) => {
+      return points.filter(function(point) {
         return point.offer.price > filterPrices.high;
       });
     default:
@@ -67,28 +67,30 @@ function filterByPrice(points, filterValue) {
 }
 
 function filterByRooms(points, filterValue) {
-  return points.filter((point) => {
+  return points.filter(function(point) {
     return point.offer.rooms === filterValue;
   });
 }
 
 function filterByGuests(points, filterValue) {
-  return points.filter((point) => {
+  return points.filter(function(point) {
     return point.offer.guests === filterValue;
   });
 }
 
 function filterByFeatures(points, features) {
   let selectedFeatures = [];
-  features.forEach(feature => {
+  features.forEach(function(feature) {
     if (feature.checked) {
       selectedFeatures.push(feature.value)
     }
   });
 
   if (selectedFeatures.length) {
-    return points.filter((point) => {
-      return point.offer.features.find(feature => selectedFeatures.includes(feature));
+    return points.filter(function(point) {
+      return point.offer.features.find(function (feature) {
+        selectedFeatures.includes(feature);
+      });
     });
   }
 

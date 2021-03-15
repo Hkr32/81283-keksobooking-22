@@ -16,7 +16,7 @@ const adForm = document.querySelector('.ad-form');
 
 // Инициализация карты
 function initMap() {
-  map.on('load', () => {
+  map.on('load', function() {
     enableForm(adForm, 'ad-form--disabled');
   });
   map.setView(initCoordinates, mapZoom);
@@ -31,7 +31,7 @@ function initMap() {
   mainPinMarker.addTo(map);
 
   formAddressChangeHandler(startCoordinates);
-  mainPinMarker.on('moveend', (evt) => {
+  mainPinMarker.on('moveend', function(evt) {
     formAddressChangeHandler(evt.target.getLatLng());
   });
 }
@@ -54,7 +54,7 @@ function generatePinMarker(coordinates, icon, draggable) {
 
 // Удаление маркеров с карты
 function removeMakersFromMap() {
-  markers.forEach((marker) => {
+  markers.forEach(function(marker) {
     map.removeLayer(marker);
   });
 }
@@ -65,7 +65,7 @@ function addMarkersToMap() {
 
   removeMakersFromMap();
 
-  points.forEach((point) => {
+  points.forEach(function(point) {
     const marker = generatePinMarker(point.location, mapPinIcon, false);
     markers.push(marker);
     marker

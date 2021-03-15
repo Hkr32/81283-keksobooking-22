@@ -17,7 +17,7 @@ function adFormHandler(form) {
 
 // Проверяем что изменилось
 function filterChangeHandler() {
-  return (evt) => {
+  return function(evt) {
     if (evt.target) {
       switch (evt.target.id) {
         case 'avatar':
@@ -49,14 +49,14 @@ function formAvatarChangeHandler() {
   const preview = document.querySelector('.ad-form-header__preview img');
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((it) => {
+  const matches = FILE_TYPES.some(function(it) {
     return fileName.endsWith(it);
   });
 
   if (matches) {
     const reader = new FileReader();
 
-    reader.addEventListener('load', () => {
+    reader.addEventListener('load', function() {
       preview.src = reader.result;
     });
 
@@ -71,14 +71,14 @@ function formImagesChangeHandler() {
   const previewContainer = document.querySelector('.ad-form__photo');
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((it) => {
+  const matches = FILE_TYPES.some(function(it) {
     return fileName.endsWith(it);
   });
 
   if (matches) {
     const reader = new FileReader();
 
-    reader.addEventListener('load', () => {
+    reader.addEventListener('load', function() {
       const preview = previewContainer.querySelector('img');
       if (preview) {
         preview.src = reader.result;
@@ -98,7 +98,7 @@ function formRoomsChangeHandler(selectedRoomNumber) {
   const capacitySelect = document.querySelector('#capacity');
   const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
-  capacitySelectOptions.forEach((formElement) => {
+  capacitySelectOptions.forEach(function(formElement) {
     const formElementValue = Number(formElement.value);
     if (formElementValue === 0 && roomNumber === 100) {
       formElement.removeAttribute('disabled');
@@ -134,8 +134,8 @@ function formAddressChangeHandler(coordinates) {
 // Сброс данных формы
 function setAdFormReset() {
   const adForm = document.querySelector('.ad-form');
-  adForm.addEventListener('reset', () => {
-    setTimeout(() => {
+  adForm.addEventListener('reset', function() {
+    setTimeout(function() {
       formAddressChangeHandler(startCoordinates);
       setMainMarkerCoordinates(startCoordinates);
       formHousingTypeChangeHandler(document.querySelector('#type'));
@@ -147,12 +147,16 @@ function setAdFormReset() {
 // Отправка формы с новым объявлением
 function setAdFormSubmit() {
   const adForm = document.querySelector('.ad-form');
-  adForm.addEventListener('submit', (evt) => {
+  adForm.addEventListener('submit', function(evt) {
     evt.preventDefault();
     if (validateAdForm()) {
       sendData(
-        () => showMessageForSuccessSendData(),
-        () => showMessageForErrorSendData(),
+        function() {
+          return showMessageForSuccessSendData();
+        },
+        function() {
+          return showMessageForErrorSendData();
+        },
         new FormData(evt.target),
       );
     }

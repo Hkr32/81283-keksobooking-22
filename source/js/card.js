@@ -25,7 +25,11 @@ function prepareCard(cardItem, item) {
 
   const features = cardItem.querySelector('.popup__features').children;
   for (let i = features.length - 1; i >= 0; i--) {
-    if (!item.offer.features.find((searchItem) => 'popup__feature--' + searchItem === features[i].classList[1])) {
+    if (!item.offer.features.find(
+      function (searchItem) {
+        return 'popup__feature--' + searchItem === features[i].classList[1]
+      })
+    ) {
       features[i].remove();
     }
   }
@@ -37,7 +41,7 @@ function prepareCard(cardItem, item) {
   const imageTemplate = photos.querySelector('img');
   photos.querySelector('img').remove();
 
-  item.offer.photos.forEach((photoSrc) => {
+  item.offer.photos.forEach(function(photoSrc) {
     const photoElement = imageTemplate.cloneNode(true);
     photoElement.setAttribute('src', photoSrc);
     photoElement.setAttribute('alt', item.offer.title);
