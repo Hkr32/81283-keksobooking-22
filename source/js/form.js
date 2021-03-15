@@ -138,6 +138,7 @@ function setAdFormReset() {
     setTimeout(() => {
       formAddressChangeHandler(startCoordinates);
       setMainMarkerCoordinates(startCoordinates);
+      formHousingTypeChangeHandler(document.querySelector('#type'));
       resetPreview();
     },0)
   });
