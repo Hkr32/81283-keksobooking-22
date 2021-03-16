@@ -39,12 +39,14 @@ const initCoordinates = {
 
 const mapZoom = 13;
 
+// Названия переменных из https://leafletjs.com/reference-1.7.1.html#icon
 const mainMapPinIcon = {
   iconUrl: mainPin,
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 };
 
+// Названия переменных из https://leafletjs.com/reference-1.7.1.html#icon
 const mapPinIcon = {
   iconUrl: secondaryPin,
   iconSize: [52, 52],
